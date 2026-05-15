@@ -30,7 +30,7 @@ const CustomAreaTooltip = ({ active, payload, label }) => {
 };
 
 function CountBig({ started }) {
-  const count = useCountUp(117, 2200, started);
+  const count = useCountUp(840, 2200, started);
   return (
     <div style={{
       background: '#390040',
@@ -152,7 +152,7 @@ export default function IdeationSection() {
                 ))}
               </div>
               <div style={{ textAlign: 'center', marginTop: 12, fontSize: '13px', color: '#7a6678' }}>
-                90 cards generated → <strong style={{ color: '#390040' }}>117 unique ideas</strong> after deduplication
+                10 questions generated → <strong style={{ color: '#390040' }}>840 total ideas</strong> across 5 rounds
               </div>
             </div>
           </motion.div>

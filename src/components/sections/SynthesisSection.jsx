@@ -169,7 +169,7 @@ export default function SynthesisSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="section-lead"
           >
-            We categorised all 117 ideas across three dimensions — Desirability, Feasibility, Viability — then filtered for short-to-medium time horizon and highest effort-to-value ratio.
+            We filtered 840 total ideas down to 117 top ideas, and categorised them across three dimensions — Desirability, Feasibility, Viability — then filtered for short-to-medium time horizon and highest effort-to-value ratio.
           </motion.p>
         </div>
 
@@ -185,11 +185,12 @@ export default function SynthesisSection() {
                 Idea filtration funnel
               </div>
               {[
-                { label: 'Total ideas', count: 117, pct: 100 },
-                { label: 'D + F + V (Sweet Spot)', count: 32, pct: 27 },
-                { label: 'Short / medium term', count: 28, pct: 24 },
-                { label: 'High value / effort', count: 14, pct: 12 },
-                { label: 'Priority solutions', count: 7, pct: 6 },
+                { label: 'Total ideas generated', count: 840, pct: 100 },
+                { label: 'Top ideas selected', count: 117, pct: 14 },
+                { label: 'D + F + V (Sweet Spot)', count: 32, pct: 4 },
+                { label: 'Short / medium term', count: 28, pct: 3 },
+                { label: 'High value / effort', count: 14, pct: 2 },
+                { label: 'Priority solutions', count: 7, pct: 1 },
               ].map(({ label, count, pct }) => (
                 <div key={label} style={{ marginBottom: 8 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4, alignItems: 'center' }}>
