@@ -1,0 +1,618 @@
+{
+  "project": {
+    "title": "Unhoused",
+    "subtitle": "A Design Thinking Journey into the Housing Crisis",
+    "location": "Hyderabad, India",
+    "phases": 7,
+    "totalPersonas": 3,
+    "totalRootCauses": 36,
+    "totalIdeas": 117,
+    "prioritySolutions": 7
+  },
+
+  "keyStats": [
+    { "value": "5–7×", "label": "Home price to annual income ratio in Hyderabad", "source": "NHB 2024" },
+    { "value": "60%", "label": "Of income consumed by housing for stretched homeowners", "source": "Primary research" },
+    { "value": "73%", "label": "Of income on housing for informal residents", "source": "Primary research" },
+    { "value": "52%", "label": "Of income on rent for urban professionals", "source": "Primary research" },
+    { "value": "36", "label": "Root causes identified across all 3 personas", "source": "RCA" },
+    { "value": "117", "label": "Ideas generated via 6-3-5 brainwriting", "source": "Ideation session" },
+    { "value": "32", "label": "Sweet spot ideas (D+F+V)", "source": "Triple-T analysis" },
+    { "value": "7", "label": "Priority solutions shortlisted", "source": "Final synthesis" }
+  ],
+
+  "housingSpend": {
+    "description": "Housing spend as % of monthly income by persona type",
+    "toggleable": true,
+    "series": [
+      { "persona": "Didi (Informal Resident)", "percentage": 73, "color": "#730071", "annotation": "Includes rent hikes with zero recourse" },
+      { "persona": "Suresh & Radha (Homeowner)", "percentage": 60, "color": "#390040", "annotation": "EMI + utilities + hidden costs" },
+      { "persona": "Priya K. (Urban Renter)", "percentage": 52, "color": "#DC9596", "annotation": "Rent alone, before brokerage & deposit" }
+    ]
+  },
+
+  "priceVsWage": {
+    "description": "Housing price index vs. wage growth — indexed to 100 in 2010",
+    "source": "NHB, RBI, CMIE data (indicative trend)",
+    "years": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+    "housingPriceIndex": [100, 112, 128, 142, 158, 172, 190, 210, 232, 252, 248, 270, 308, 335, 358, 378],
+    "wageIndex": [100, 104, 108, 112, 116, 119, 122, 125, 129, 132, 130, 134, 138, 141, 145, 148],
+    "annotation": "15-year divergence — prices grew 3.78× faster than wages"
+  },
+
+  "emotionCurves": {
+    "stages": ["Awareness", "Search", "Decision", "Entry", "Living", "Crisis"],
+    "personas": [
+      {
+        "name": "Suresh & Radha",
+        "code": "P1",
+        "color": "#390040",
+        "scores": [3, -2, -4, -3, -5, -6],
+        "stageNotes": [
+          "Hopeful; believes a solution exists",
+          "Frustration at disconnected prices",
+          "Resigned; committed to constraint they cannot exit",
+          "Overwhelmed by hidden costs",
+          "Chronically anxious; normalised stress",
+          "Fear; deep regret at overextension"
+        ]
+      },
+      {
+        "name": "Didi",
+        "code": "P2",
+        "color": "#730071",
+        "scores": [1, -2, -5, -4, -4, -8],
+        "stageNotes": [
+          "Cautious hope; guarded optimism",
+          "Frustration; confusion; low-grade humiliation",
+          "Despair; sense of systemic exclusion",
+          "Anxious; fragile relief at submitting something",
+          "Resigned anxiety; financial strain; exhaustion",
+          "Defeat; fear; permanently locked out"
+        ]
+      },
+      {
+        "name": "Priya K.",
+        "code": "P3",
+        "color": "#DC9596",
+        "scores": [2, -2, -3, -4, -5, -6],
+        "stageNotes": [
+          "Mildly anxious but believes a solution exists",
+          "Frustrated; disconnected prices",
+          "Uneasy; committed to constraint",
+          "Overwhelmed; hollow sense of achievement undercut by debt",
+          "Financially constrained; social life contracted",
+          "Fear; panic; deep regret; sense of trap with no exit"
+        ]
+      }
+    ]
+  },
+
+  "rootCauses": {
+    "description": "Root cause categories across all 3 personas — 36 pain chains total",
+    "categories": [
+      "Policy gap", "System design", "Governance", "Market failure",
+      "Legal framework", "Data access", "Communication", "Eligibility",
+      "Tenant rights", "Transparency", "Financial", "Infrastructure"
+    ],
+    "byPersona": {
+      "P1": [3, 2, 1, 4, 1, 2, 0, 1, 1, 1, 3, 1],
+      "P2": [2, 1, 3, 0, 3, 1, 3, 4, 0, 2, 0, 1],
+      "P3": [2, 1, 1, 3, 2, 1, 1, 1, 3, 2, 1, 2]
+    },
+    "crossCuttingTheme": "Across all 3 personas, root causes converge on systems and policies designed for an imagined citizen — literate, settled, formally employed — that excludes the majority of actual users.",
+    "topRootCauses": [
+      { "persona": "P1", "pain": "No clear picture of what is affordable", "root": "Housing info ecosystem monetised by developers, not consumers", "chain": ["Portals lead with premium listings only", "Developer ad budgets favour luxury stock", "No regulation on portal inventory mix", "Platforms driven by advertiser revenue"] },
+      { "persona": "P1", "pain": "EMI overextension normalised by banks", "root": "No mandatory long-term EMI stress disclosure to buyers", "chain": ["Banks approve loans beyond safe thresholds", "Income-to-loan ratios not stress-tested", "Lender incentive is loan origination", "No borrower protection norms"] },
+      { "persona": "P1", "pain": "Hidden costs not disclosed upfront", "root": "Regulation designed around sale price, not ownership cost", "chain": ["Brokerage, stamp duty, interiors not bundled", "No standardised total cost disclosure", "RERA covers price not ancillary costs", "Regulation focuses on sale price"] },
+      { "persona": "P1", "pain": "No buffer for income shocks", "root": "Policy gap: no safety net for over-leveraged homeowners", "chain": ["EMI is fixed; income is variable", "No insurance product for EMI protection", "Mortgage protection insurance not mandated", "Policy gap in borrower protection"] },
+      { "persona": "P2", "pain": "Hyderabad ration card required — impossible for migrants", "root": "Urban poor policy built for static populations", "chain": ["Domicile-based eligibility criteria", "Scheme designed for settled residents, not migrants", "Migration not recognised in housing policy", "Policy based on static population assumptions"] },
+      { "persona": "P2", "pain": "Document ecosystem excludes informal residents", "root": "State never legally recognised informal settlements", "chain": ["Rent receipts & Aadhaar not accepted as proof", "Formal proof of residence requires formal tenancy", "Informal housing exists outside legal tenancy framework", "Legal system does not recognise informal settlements"] },
+      { "persona": "P2", "pain": "Lottery is opaque; no appeal process", "root": "Housing allocation designed without grievance architecture", "chain": ["Allotment criteria not publicly disclosed", "No audit trail for lottery results", "No accountability mechanism", "No grievance system in allocation"] },
+      { "persona": "P2", "pain": "Zero communication post-submission", "root": "Transparency obligations stop at policy level, not operational level", "chain": ["No SMS, IVR, or notice sent to applicants", "No proactive update obligation on scheme", "Citizen communication not mandated in design", "Accountability not built into systems"] },
+      { "persona": "P3", "pain": "One-sided lease terms; no negotiating power", "root": "Lack of political prioritisation for renter rights", "chain": ["Standard lease heavily favours landlord", "No model tenancy enforcement in Telangana", "Model Tenancy Act not adopted by state", "Weak tenant protection frameworks"] },
+      { "persona": "P3", "pain": "No savings possible; rent forecloses optionality", "root": "Free-market rental system without affordability safeguards", "chain": ["Rent is 50%+ of monthly income", "Salary growth not kept pace with rent", "No rent escalation cap in Hyderabad", "No rent regulation mechanisms"] },
+      { "persona": "P3", "pain": "Govt subsidy absent for first-entry costs", "root": "Structural policy bias toward ownership over renting", "chain": ["No scheme for deposit assistance", "Rental affordability not on policy agenda", "Policy frames housing as ownership problem only", "Rental housing excluded from welfare frameworks"] },
+      { "persona": "P3", "pain": "Mortgage restructuring inaccessible to renters", "root": "Lack of innovation incentives in housing finance sector", "chain": ["No pathway from renting to ownership", "Rent-to-own schemes absent in India", "No financial product bridging rent & purchase", "Financial institutions don't target renters"] }
+    ]
+  },
+
+  "journeyMaps": {
+    "stages": ["Awareness", "Search", "Decision", "Entry", "Living", "Crisis"],
+    "P1": {
+      "persona": "Suresh & Radha",
+      "goal": "Find stable, affordable housing in Hyderabad without sacrificing financial security or family wellbeing",
+      "actions": [
+        "Talks to spouse and family. Browses listings casually. Asks colleagues what they paid.",
+        "Site visits, talks to brokers, gets loan pre-approval from bank, compares EMI scenarios.",
+        "Signs home loan documents, pays stamp duty and registration. Arranges interior work on credit.",
+        "Arranges movers, completes registration, buys essential furniture on credit, sets up bank auto-debit for EMI.",
+        "Pays EMI, groceries, utilities. Eliminates all discretionary spending. Discusses finances with spouse weekly.",
+        "Calls bank, looks at refinancing, considers renting out a room, cuts food budget further."
+      ],
+      "touchpoints": [
+        "Word of mouth, MagicBricks, WhatsApp family group",
+        "Property portals, broker office, bank loan officer",
+        "Bank, registration office, builder, interior contractor",
+        "Registration office, movers, furniture shops, bank",
+        "Bank auto-debit, salary slip, family conversations",
+        "Bank recovery team, financial advisor, family"
+      ],
+      "thoughts": [
+        "\"There must be something decent in our budget — we just haven't looked properly yet.\"",
+        "\"Builders are not building for teachers or nurses — only for investors.\"",
+        "\"Builders are not building for teachers or nurses — only for investors.\"",
+        "\"This is not ideal but we have no choice. We will manage the EMI somehow.\"",
+        "\"Why did no one tell us about all these extra costs? We are starting from zero again.\"",
+        "\"We can't save anything. What happens if something goes wrong?\""
+      ],
+      "emotions": ["Mildly anxious but hopeful", "Frustrated; emerging hopelessness", "Resigned; committed to constraint", "Overwhelmed by hidden costs", "Chronically anxious; normalised stress", "Fear; panic; deep regret at overextension"],
+      "emotionScores": [3, -2, -4, -3, -5, -6],
+      "painPoints": [
+        "No clear picture of what is actually affordable; market info scattered and overwhelming",
+        "Property prices entirely disconnected from middle-class income; builders have exited affordable segment",
+        "Zero market alternatives — take it or leave it; EMI overextension normalised by banks",
+        "Hidden costs (registration, interiors, brokerage) not disclosed upfront",
+        "No savings possible — EMI forecloses all financial optionality; social and lifestyle contraction is total",
+        "No buffer for income shocks when EMI is at maximum; mortgage restructuring options inaccessible to most"
+      ],
+      "opportunities": [
+        "Realistic EMI / rent affordability calculator; plain-language housing market explainer for middle-class buyers",
+        "Mandate affordable unit % in all new developments; unified affordable housing discovery portal",
+        "EMI stress-test tool with long-term scenario modelling; standardised buyer disclosure of total cost of ownership",
+        "Mandatory all-in cost disclosure before sale; government subsidy for first-entry costs for affordable segment",
+        "Rent escalation caps tied to inflation index; financial resilience tools for over-leveraged renters",
+        "Mortgage hardship restructuring programme; distributed infrastructure investment to de-concentrate demand"
+      ]
+    },
+    "P2": {
+      "persona": "Didi",
+      "goal": "Find stable housing through a government scheme without being displaced again; get a proper study space for her children",
+      "actions": [
+        "Saves the pamphlet; asks neighbour for details; tells children something might happen",
+        "Waits 40 min; is redirected twice; writes down contradictory instructions from two staff",
+        "Visits ration card office; asks employer for letter; contacts village panchayat by phone",
+        "Travels across town; gets NGO help filling form; hands in incomplete document set",
+        "Pays raised rent ₹5,500; keeps collecting water at 5am; asks neighbours for any news",
+        "Checks ward notice board; confirms non-allotment; begins asking about the next lottery cycle"
+      ],
+      "touchpoints": [
+        "Word of mouth; wall pamphlet",
+        "Ward office; printed form",
+        "Ration card office; employer; panchayat",
+        "Ward office; NGO volunteer; paper form",
+        "Neighbour network; landlord",
+        "Ward notice board; community network"
+      ],
+      "thoughts": [
+        "\"Maybe this time something will come of it. I should at least try.\"",
+        "\"They keep sending me to different people. Nobody actually knows the rules.\"",
+        "\"I can't get the documents they want. My whole life is in the wrong place on paper.\"",
+        "\"I don't know if I filled this correctly. I hope the volunteer understood my situation.\"",
+        "\"I applied before and heard nothing. Why would this time be different?\"",
+        "\"The system is not made for people like me. I need to protect my children before demolition comes.\""
+      ],
+      "emotions": ["Cautious hope; guarded optimism", "Frustration; confusion; low-grade humiliation", "Despair; trapped; sense of systemic exclusion", "Anxious; fragile relief at having submitted something", "Resigned anxiety; financial strain; exhaustion", "Defeat; fear; deep sense of being permanently locked out"],
+      "emotionScores": [1, -2, -5, -4, -4, -8],
+      "painPoints": [
+        "No formal channels — only word of mouth; scheme info not in accessible formats",
+        "Staff give contradictory information; no single point of contact",
+        "Hyderabad ration card required — impossible for migrants; document ecosystem excludes informal residents",
+        "Lost wages to attend office; no guidance on incomplete submissions",
+        "Zero communication post-submission; rent keeps rising with no recourse",
+        "Lottery is opaque — no appeal process; repeated rejection with no explanation"
+      ],
+      "opportunities": [
+        "Multilingual community outreach programme; proactive ward-level awareness drives",
+        "Single-window helpdesk with trained officers; plain-language eligibility checklist",
+        "Accept rent receipts + Aadhaar as proof of residence; assisted document collection camps",
+        "Mobile application unit in settlement areas; NGO-integrated submission support",
+        "SMS/IVR status updates after submission; mandatory rent freeze during application period",
+        "Transparent lottery with public audit trail; grievance redressal mechanism with timeline"
+      ]
+    },
+    "P3": {
+      "persona": "Priya K.",
+      "goal": "Build savings before the next rent hike; find a stable, affordable place to live long-term; eventually afford to stop renting",
+      "actions": [
+        "Talks to flatmate; messages colleagues for leads; opens MagicBricks for the first time in months",
+        "Filters by budget; visits 6 apartments over two weekends; calculates commute times and costs",
+        "Mentally runs affordability scenarios; asks a colleague's advice; signs without negotiating",
+        "Arranges movers; pays deposit from savings; sets up bank auto-debit; buys basic furniture on credit",
+        "Monitors listings periodically out of anxiety; withdraws from social invitations; defers all large purchases",
+        "Runs the mental math again; asks flatmate about splitting more; considers moving further out"
+      ],
+      "touchpoints": [
+        "WhatsApp (landlord); colleague network",
+        "NoBroker, MagicBricks, broker",
+        "Broker; lease agreement",
+        "Bank auto-debit; employer; movers; furniture shop",
+        "NoBroker (passive); salary slip; family calls",
+        "WhatsApp (landlord); colleague conversations"
+      ],
+      "thoughts": [
+        "\"I keep ending up in the same position every year. There must be something affordable I just haven't looked properly yet.\"",
+        "\"Every listing in my budget is either too far or too small. The market is not built for people on my salary.\"",
+        "\"This is not ideal but I have no real alternative. I will manage somehow.\"",
+        "\"Registration, deposit, brokerage, furniture — it all adds up and nobody tells you upfront.\"",
+        "\"Why did no one warn me about all these hidden costs? I am starting from zero again every year.\"",
+        "\"Income has improved on paper but at prime locations where real people need to live, nothing has changed.\""
+      ],
+      "emotions": ["Mildly anxious but hopeful; still believes a solution exists", "Frustrated; disbelief at how disconnected prices are from income; emerging hopelessness", "Resigned; relieved it is decided but uneasy about affordability; committed to a constraint she cannot exit", "Overwhelmed by hidden costs; hollow sense of achievement undercut by debt", "Chronically anxious; financially constrained; social life contracted; stress normalised", "Fear; panic; deep regret at overextension; sense of trap with no exit"],
+      "emotionScores": [2, -2, -3, -4, -5, -6],
+      "painPoints": [
+        "No clear picture of what is actually affordable; market information scattered and overwhelming",
+        "Property prices entirely disconnected from middle-class income; builders have exited affordable segment",
+        "Zero market alternatives — take it or leave it; EMI overextension normalised by banks and brokers",
+        "Hidden costs (deposit, brokerage, interiors) not disclosed upfront; one-sided lease terms with no negotiating power",
+        "No savings possible — rent forecloses all financial optionality; social and lifestyle contraction is total",
+        "No buffer for income shocks when rent is at maximum; mortgage restructuring options inaccessible to most"
+      ],
+      "opportunities": [
+        "Realistic rent affordability calculator; plain-language housing market explainer",
+        "Mandate affordable unit % in all new developments; unified affordable housing discovery portal",
+        "EMI stress-test tool with long-term scenario modelling; standardised buyer disclosure of total cost of ownership",
+        "Mandatory all-in cost disclosure before lease signing; government subsidy for first-entry costs for affordable segment",
+        "Rent escalation caps tied to inflation index; financial resilience tools for over-leveraged renters",
+        "Mortgage hardship restructuring programme; distributed infrastructure investment to de-concentrate demand"
+      ]
+    }
+  },
+
+  "personas": [
+    {
+      "code": "P1",
+      "name": "Suresh & Radha",
+      "type": "Stretched Homeowner",
+      "age": "Late 30s",
+      "occupation": "Dual-income salaried professionals",
+      "income": "₹1.4L/mo combined",
+      "location": "Hyderabad city",
+      "techComfort": "High",
+      "housingStatus": "Over-leveraged homeowner",
+      "colorLight": "#DC9596",
+      "colorDark": "#390040",
+      "archetype": "We bought what we could get. Now we're not sure we can survive it.",
+      "goals": [
+        "Own a home without sacrificing financial stability",
+        "Understand true affordability before committing",
+        "Access restructuring if income shocks hit"
+      ],
+      "frustrations": [
+        "EMI consumes 60% of household income — zero buffer",
+        "Hidden costs (stamp duty, brokerage, interior) not disclosed upfront",
+        "No genuine affordable alternatives — take it or leave it market",
+        "Banks approved loans beyond safe thresholds with no stress test",
+        "Mortgage restructuring only available at default stage"
+      ],
+      "workarounds": [
+        "Renting out a room to offset EMI",
+        "Cutting food budget and social spending",
+        "Deferring all large purchases indefinitely"
+      ],
+      "behaviors": [
+        "Checks refinancing options obsessively despite knowing they won't qualify",
+        "Discusses finances with spouse every week — high anxiety household",
+        "Has stopped making any discretionary purchases",
+        "Tracks salary credit date carefully relative to EMI debit date"
+      ]
+    },
+    {
+      "code": "P2",
+      "name": "Didi",
+      "type": "Informal Housing Resident",
+      "age": "40s",
+      "occupation": "Domestic worker / daily-wage informal labour",
+      "income": "Variable, ₹8,000–12,000/mo",
+      "location": "Saidabad informal housing settlement",
+      "techComfort": "Basic",
+      "housingStatus": "Informal renter, at displacement risk",
+      "colorLight": "#C2C094",
+      "colorDark": "#390040",
+      "archetype": "I just want my children to have a place to study. That's all I'm asking for.",
+      "goals": [
+        "Not be displaced again — stable housing for family",
+        "Get children a proper study space",
+        "Successfully access a government housing scheme"
+      ],
+      "frustrations": [
+        "Rent raised from ₹3,500 to ₹5,500 over six years with no power to resist",
+        "Four people in one room: no ventilation, no study space, no privacy",
+        "Shared bathroom for 5 families; one hour of water daily",
+        "Government schemes require documentation her family cannot produce",
+        "Applied for lottery twice — nothing received, no explanation"
+      ],
+      "workarounds": [
+        "Children study on the bed — no desk or dedicated space",
+        "Collects water in buckets during the one-hour supply window",
+        "Relies on community networks for information about schemes and jobs"
+      ],
+      "behaviors": [
+        "Wakes early to collect water before supply cuts off",
+        "Tracks rent payment date carefully — no buffer if late",
+        "Keeps an eye on demolition activity in the neighbourhood",
+        "Accounts for every rupee — there is no discretionary spending category"
+      ]
+    },
+    {
+      "code": "P3",
+      "name": "Priya K.",
+      "type": "Urban Professional Renter",
+      "age": "Mid to late 20s",
+      "occupation": "Salaried urban professional (services / admin sector)",
+      "income": "₹55,000–70,000/mo",
+      "location": "Renting in Hyderabad city; specific area varies with affordability",
+      "techComfort": "High",
+      "housingStatus": "Trapped long-term renter",
+      "colorLight": "#A9A587",
+      "colorDark": "#390040",
+      "archetype": "I keep looking every year. Every year, nothing has changed.",
+      "goals": [
+        "Build some savings before the next rent hike",
+        "Find a stable, affordable place to live long-term",
+        "Eventually afford to stop renting"
+      ],
+      "frustrations": [
+        "Rent eats most of monthly salary",
+        "Saving money feels almost impossible",
+        "Constant fear of annual rent hike or eviction",
+        "Cannot buy; prices are entirely disconnected from her income",
+        "Social plans and spending on anything beyond basics has stopped"
+      ],
+      "workarounds": [
+        "Has stopped going out to save money",
+        "Shares accommodation to split costs",
+        "Deferred any large personal purchase indefinitely"
+      ],
+      "behaviors": [
+        "Monitors NoBroker / MagicBricks periodically out of anxiety — not active search",
+        "Mentally calculates what rent increase she can absorb before she must move",
+        "Withdraws from social invitations that involve spending",
+        "Talks about housing stress frequently with colleagues in similar situations"
+      ]
+    }
+  ],
+
+  "hmwStatements": {
+    "P1": [
+      { "id": "P1-1", "pain": "No clear picture of what is affordable", "hmw": "How might we help middle-class families quickly understand what homes are actually affordable for their income, instead of overwhelming them with luxury listings they can never realistically buy?" },
+      { "id": "P1-2", "pain": "Market info scattered and overwhelming", "hmw": "How might we bring pricing, legal verification, loan estimates, and area development information into one simple and trustworthy platform so buyers don't have to search across ten different places?" },
+      { "id": "P1-3", "pain": "Prices disconnected from middle-class income", "hmw": "How might we encourage housing development that matches real middle-class salaries instead of focusing mainly on investors and luxury buyers?" },
+      { "id": "P1-4", "pain": "Builders exited affordable segment", "hmw": "How might we make affordable housing financially attractive for builders again without sacrificing quality or location?" },
+      { "id": "P1-5", "pain": "Zero market alternatives", "hmw": "How might we create more realistic and flexible housing options for families who feel trapped between unaffordable homes and poor living conditions?" },
+      { "id": "P1-6", "pain": "EMI overextension normalised by banks", "hmw": "How might we help people avoid taking home loans that look manageable on paper but quietly destroy their financial stability and quality of life?" },
+      { "id": "P1-7", "pain": "Hidden costs not disclosed upfront", "hmw": "How might we ensure buyers know the complete cost of owning a home — not just the sale price — before they make an irreversible commitment?" },
+      { "id": "P1-8", "pain": "No savings possible — EMI forecloses optionality", "hmw": "How might we redesign loan approval processes so that families are protected from over-leveraging even when they are willing to take the risk?" },
+      { "id": "P1-9", "pain": "Social and lifestyle contraction is total", "hmw": "How might we make it possible for middle-class homeowners to maintain a dignified quality of life even while servicing a mortgage?" },
+      { "id": "P1-10", "pain": "No buffer for income shocks", "hmw": "How might we build financial resilience tools that protect homeowners from job loss or medical emergencies without requiring them to default first?" },
+      { "id": "P1-11", "pain": "Mortgage restructuring options inaccessible", "hmw": "How might we make mortgage hardship programmes available proactively, before families reach crisis point?" },
+      { "id": "P1-12", "pain": "Social and lifestyle contraction — income vs price gap", "hmw": "How might we address the structural gap between income growth and housing cost growth so future generations are not permanently excluded from homeownership?" }
+    ],
+    "P2": [
+      { "id": "P2-1", "pain": "No formal channels; only word of mouth", "hmw": "How might we make government housing information easy to access for people who rely more on community networks than official websites?" },
+      { "id": "P2-2", "pain": "Scheme info not in accessible formats", "hmw": "How might we communicate housing schemes through voice calls, local languages, WhatsApp, and offline methods instead of expecting everyone to navigate PDFs and portals?" },
+      { "id": "P2-3", "pain": "Staff give contradictory information", "hmw": "How might we ensure every applicant receives the same clear and accurate guidance regardless of which office or staff member they approach?" },
+      { "id": "P2-4", "pain": "No single point of contact", "hmw": "How might we simplify the housing application process so people do not get pushed between departments without knowing who is actually responsible?" },
+      { "id": "P2-5", "pain": "Hyderabad ration card required — impossible for migrants", "hmw": "How might we make housing schemes accessible for migrants and informal workers who contribute to the city but lack local documents?" },
+      { "id": "P2-6", "pain": "Document ecosystem excludes informal residents", "hmw": "How might we redesign eligibility criteria so that people without formal documentation are not automatically excluded from housing support?" },
+      { "id": "P2-7", "pain": "Lost wages to attend office", "hmw": "How might we bring housing scheme services to where daily-wage workers are, instead of requiring them to lose income by visiting offices during working hours?" },
+      { "id": "P2-8", "pain": "No guidance on incomplete submissions", "hmw": "How might we give applicants clear, immediate feedback when their submissions are incomplete, so they can fix problems before being rejected?" },
+      { "id": "P2-9", "pain": "Zero communication post-submission", "hmw": "How might we keep housing scheme applicants informed at every stage without requiring them to have a smartphone or internet access?" },
+      { "id": "P2-10", "pain": "Rent keeps rising with no recourse", "hmw": "How might we give informal renters some legal protection against arbitrary rent hikes while formal housing solutions are still being developed?" },
+      { "id": "P2-11", "pain": "Lottery is opaque; no appeal process", "hmw": "How might we make housing lottery systems transparent and accountable so that every applicant can understand and challenge the outcome?" },
+      { "id": "P2-12", "pain": "Repeated rejection with no explanation", "hmw": "How might we ensure that every rejection comes with a clear explanation and a concrete next step, so residents can improve their applications rather than give up?" }
+    ],
+    "P3": [
+      { "id": "P3-1", "pain": "No clear picture of what is affordable", "hmw": "How might we help renters filter homes based on realistic budgets and commute needs instead of aspirational listings that waste their time?" },
+      { "id": "P3-2", "pain": "Market info scattered and overwhelming", "hmw": "How might we make rental prices and area trends more transparent so renters can make informed decisions instead of guessing market rates?" },
+      { "id": "P3-3", "pain": "Prices disconnected from middle-class income", "hmw": "How might we reduce the mismatch between rising urban rents and stagnant salaries for young professionals?" },
+      { "id": "P3-4", "pain": "Builders exited affordable segment", "hmw": "How might we encourage the development of affordable rental housing near job hubs instead of only luxury apartments?" },
+      { "id": "P3-5", "pain": "Zero market alternatives", "hmw": "How might we improve transport and housing planning together so affordable housing does not automatically mean unbearable commutes?" },
+      { "id": "P3-6", "pain": "One-sided lease terms; no negotiating power", "hmw": "How might we give renters a fair, understandable lease that protects their basic rights without requiring a lawyer to interpret it?" },
+      { "id": "P3-7", "pain": "Hidden costs not disclosed before signing", "hmw": "How might we ensure renters know all the costs involved before they sign a lease, not after they have moved in?" },
+      { "id": "P3-8", "pain": "Govt subsidy absent for first-entry costs", "hmw": "How might we reduce the upfront financial barrier to renting a new home for young professionals who are just getting started?" },
+      { "id": "P3-9", "pain": "No savings possible; rent forecloses optionality", "hmw": "How might we create a rental system that allows young professionals to save while renting, rather than choosing between one or the other?" },
+      { "id": "P3-10", "pain": "Social and lifestyle contraction is total", "hmw": "How might we make it possible for urban renters to participate in social and cultural life without housing costs consuming everything?" },
+      { "id": "P3-11", "pain": "No buffer for annual rent hike", "hmw": "How might we give renters predictable, advance warning of rent changes so they can plan financially rather than be ambushed?" },
+      { "id": "P3-12", "pain": "Mortgage restructuring inaccessible to renters", "hmw": "How might we create a credible pathway from long-term renting to homeownership for people who are stuck renting not by choice but by circumstance?" }
+    ]
+  },
+
+  "sixThreeFive": {
+    "method": "6 participants × 3 ideas × 5 rounds of iteration",
+    "rounds": [
+      { "round": 1, "name": "Seed ideas", "cumulative": 18, "description": "Each participant generates 3 initial ideas independently. Raw, unfiltered responses to the HMW prompts." },
+      { "round": 2, "name": "First iteration", "cumulative": 38, "description": "Sheets rotate. Participants build on, combine, or challenge existing ideas. Concepts acquire specificity and depth." },
+      { "round": 3, "name": "Cross-pollination", "cumulative": 63, "description": "Themes from different HMW tracks begin merging. Systemic ideas emerge alongside product-level and policy interventions." },
+      { "round": 4, "name": "Challenge round", "cumulative": 89, "description": "Participants counter-argue or stress-test existing ideas — surfacing assumptions and strengthening robust concepts." },
+      { "round": 5, "name": "Synthesis", "cumulative": 117, "description": "Final round synthesises threads. Near-complete concepts emerge: Migrant Worker Housing Card, Affordability Dashboard, Missed-Call Escalation." }
+    ],
+    "perRound": [18, 20, 25, 26, 28],
+    "sampleIdeas": [
+      "Affordability dashboards comparing salaries with local housing costs",
+      "Build public affordability indexes for every city ward",
+      "GIS-based housing maps combining transit and affordability layers",
+      "Missed-call distress signal integrated with paralegal network",
+      "Accept informal landlord declarations digitally",
+      "Voice reminders before application deadlines in regional languages",
+      "Legally mandated 30-day SLA with auto-escalation",
+      "Housing Grievance Review Board with binding decision power",
+      "Lottery public audit trail with score breakdowns via SMS",
+      "EMI long-term stress disclosure tool before loan signing",
+      "BOCW registration as housing eligibility proof",
+      "Mobile ward office vans with satellite internet and document scanning",
+      "Points calculator app for migrant housing eligibility",
+      "Residency affidavit shifting burden of proof to authorities",
+      "Universal Civic ID piloted in one ward"
+    ]
+  },
+
+  "tripleT": {
+    "method": "Desirability × Feasibility × Viability categorisation, then time horizon filter, then effort-value matrix",
+    "totals": {
+      "allIdeas": 117,
+      "dOnly": 31,
+      "fOnly": 18,
+      "vOnly": 14,
+      "dAndF": 12,
+      "dAndV": 22,
+      "fAndV": 8,
+      "dAndFAndV": 32
+    },
+    "timeHorizon": {
+      "shortTerm": 28,
+      "mediumTerm": 22,
+      "longTerm": 10
+    },
+    "effortValue": {
+      "highValueLowEffort": 7,
+      "highValueHighEffort": 12,
+      "lowValueLowEffort": 9
+    },
+    "sweetSpotIdeas": [
+      {
+        "rank": 1,
+        "title": "Housing affordability dashboard",
+        "description": "A public-facing tool comparing median local housing costs with ward-level salary data, giving buyers and renters a realistic picture of what they can actually afford.",
+        "tags": ["D", "F", "V"],
+        "timeHorizon": "Short",
+        "effort": 2,
+        "value": 9,
+        "targetPersonas": ["P1", "P3"],
+        "hmwLink": "P1-1"
+      },
+      {
+        "rank": 2,
+        "title": "Missed-call paralegal escalation system",
+        "description": "Two missed calls within 48 hours auto-flags a housing case for supervisor review and triggers a paralegal callback within 2 hours. No literacy or smartphone required.",
+        "tags": ["D", "F", "V"],
+        "timeHorizon": "Short",
+        "effort": 3,
+        "value": 9,
+        "targetPersonas": ["P2"],
+        "hmwLink": "P2-9"
+      },
+      {
+        "rank": 3,
+        "title": "Accept informal proof of residence digitally",
+        "description": "Legally recognise informal landlord declarations and union welfare registrations as valid eligibility documentation for housing schemes.",
+        "tags": ["D", "F", "V"],
+        "timeHorizon": "Short",
+        "effort": 2,
+        "value": 10,
+        "targetPersonas": ["P2"],
+        "hmwLink": "P2-6"
+      },
+      {
+        "rank": 4,
+        "title": "EMI long-term stress disclosure tool",
+        "description": "Mandatory stress-test calculator showing buyers what happens to their EMI if income drops 20%, rent rises, or a medical event occurs — presented before loan signing.",
+        "tags": ["D", "F", "V"],
+        "timeHorizon": "Short",
+        "effort": 3,
+        "value": 9,
+        "targetPersonas": ["P1"],
+        "hmwLink": "P1-6"
+      },
+      {
+        "rank": 5,
+        "title": "Lottery public audit trail with score breakdown",
+        "description": "Any applicant can request a score breakdown within 14 days of results via SMS or ward office. Backed by a Lottery Integrity Fund for independent audits.",
+        "tags": ["D", "F", "V"],
+        "timeHorizon": "Short",
+        "effort": 4,
+        "value": 8,
+        "targetPersonas": ["P2"],
+        "hmwLink": "P2-11"
+      },
+      {
+        "rank": 6,
+        "title": "BOCW registration as housing eligibility proof",
+        "description": "Accept construction worker registration as proof of urban residency. BOCW-registered workers auto-qualified, receiving an IVR outreach call on registration.",
+        "tags": ["D", "V"],
+        "timeHorizon": "Medium",
+        "effort": 4,
+        "value": 9,
+        "targetPersonas": ["P2"],
+        "hmwLink": "P2-5"
+      },
+      {
+        "rank": 7,
+        "title": "Voice reminders in regional languages before scheme deadlines",
+        "description": "Automated IVR calls in Telugu, Urdu, and Hindi sent 7 days and 1 day before every housing scheme deadline to all registered applicants.",
+        "tags": ["D", "F", "V"],
+        "timeHorizon": "Short",
+        "effort": 1,
+        "value": 8,
+        "targetPersonas": ["P2"],
+        "hmwLink": "P2-2"
+      }
+    ]
+  },
+
+  "images": {
+    "rca_p2_didi": {
+      "filename": "WhatsApp_Image_2026-05-15_at_1_36_04_PM.jpeg",
+      "description": "Root Cause Analysis — 5 Whys — P2 Didi: Informal Housing Resident",
+      "phase": "Root Cause Analysis",
+      "persona": "P2"
+    },
+    "rca_p1_suresh": {
+      "filename": "WhatsApp_Image_2026-05-15_at_1_36_04_PM__1_.jpeg",
+      "description": "Root Cause Analysis — 5 Whys — P1 Suresh & Radha: Stretched Homeowner",
+      "phase": "Root Cause Analysis",
+      "persona": "P1"
+    },
+    "journey_p1_suresh": {
+      "filename": "WhatsApp_Image_2026-05-15_at_1_36_04_PM__2_.jpeg",
+      "description": "Journey & Empathy Map — P1 Suresh & Radha: Stretched Homeowner",
+      "phase": "Journey Map",
+      "persona": "P1"
+    },
+    "journey_p2_didi": {
+      "filename": "WhatsApp_Image_2026-05-15_at_1_36_04_PM__3_.jpeg",
+      "description": "Journey & Empathy Map — P2 Didi: Informal Housing Resident",
+      "phase": "Journey Map",
+      "persona": "P2"
+    },
+    "rca_p3_priya": {
+      "filename": "WhatsApp_Image_2026-05-15_at_1_36_04_PM__4_.jpeg",
+      "description": "Root Cause Analysis — 5 Whys — P3 Priya K.: Urban Professional Renter",
+      "phase": "Root Cause Analysis",
+      "persona": "P3"
+    },
+    "journey_p1_suresh_full": {
+      "filename": "WhatsApp_Image_2026-05-15_at_1_36_05_PM.jpeg",
+      "description": "Full Journey & Empathy Map — P1 Suresh & Radha (alternate view)",
+      "phase": "Journey Map",
+      "persona": "P1"
+    },
+    "persona_didi": {
+      "filename": "WhatsApp_Image_2026-05-15_at_1_36_05_PM__1_.jpeg",
+      "description": "User Persona Template — Didi",
+      "phase": "Personas",
+      "persona": "P2"
+    },
+    "persona_priya": {
+      "filename": "WhatsApp_Image_2026-05-15_at_1_36_05_PM__2_.jpeg",
+      "description": "User Persona Template — Priya K.",
+      "phase": "Personas",
+      "persona": "P3"
+    },
+    "color_palette": {
+      "filename": "1778832813158_image.png",
+      "description": "Brand color palette: Dry Sage (#C2C094), Dry Sage (#A9A587), Dark Amethyst (#390040), Purple (#730071), Rosy Taupe (#DC9596)",
+      "phase": "Branding"
+    }
+  },
+
+  "colorPalette": {
+    "sageLighter": "#C2C094",
+    "sage": "#A9A587",
+    "amethyst": "#390040",
+    "purple": "#730071",
+    "rose": "#DC9596",
+    "offWhite": "#F5F3EE",
+    "ink": "#1A1015"
+  }
+}

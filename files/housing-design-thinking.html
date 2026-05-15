@@ -1,0 +1,1933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unhoused — A Design Thinking Journey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  :root {
+    --sage-light: #C2C094;
+    --sage: #A9A587;
+    --amethyst: #390040;
+    --purple: #730071;
+    --rose: #DC9596;
+    --off-white: #F5F3EE;
+    --ink: #1A1015;
+    --ink-mid: #3d2e3c;
+    --ink-light: #7a6678;
+    --border: rgba(57,0,64,0.12);
+    --section-gap: 120px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 0 48px;
+    height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(245,243,238,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--amethyst);
+    letter-spacing: -0.5px;
+  }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--ink-light);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--purple); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 64px;
+    overflow: hidden;
+  }
+  .hero-left {
+    padding: 80px 64px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--purple);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px; height: 1px;
+    background: var(--purple);
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(56px, 6vw, 88px);
+    line-height: 1.0;
+    color: var(--amethyst);
+    letter-spacing: -2px;
+    margin-bottom: 8px;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--purple);
+  }
+  .hero-subtitle {
+    font-size: 18px;
+    color: var(--ink-light);
+    line-height: 1.6;
+    margin-bottom: 48px;
+    max-width: 440px;
+    font-weight: 300;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: var(--amethyst);
+    color: #fff;
+    padding: 16px 32px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .hero-cta:hover { background: var(--purple); }
+  .hero-cta-arrow { font-size: 20px; }
+  .hero-right {
+    background: var(--amethyst);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 60px;
+  }
+  .hero-stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    width: 100%;
+    max-width: 480px;
+  }
+  .hero-stat {
+    background: rgba(255,255,255,0.05);
+    padding: 32px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-stat::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+  }
+  .hero-stat:nth-child(1)::before { background: var(--sage-light); }
+  .hero-stat:nth-child(2)::before { background: var(--rose); }
+  .hero-stat:nth-child(3)::before { background: var(--purple); }
+  .hero-stat:nth-child(4)::before { background: var(--sage); }
+  .hero-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 44px;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .hero-stat-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+  }
+
+  /* PHASE TIMELINE */
+  .phase-bar {
+    background: var(--amethyst);
+    padding: 0 48px;
+    overflow-x: auto;
+    display: flex;
+    gap: 0;
+  }
+  .phase-item {
+    flex: 0 0 auto;
+    padding: 20px 28px;
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    cursor: default;
+    transition: color 0.2s;
+    white-space: nowrap;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .phase-item:hover { color: rgba(255,255,255,0.9); }
+  .phase-num {
+    font-size: 10px;
+    color: var(--rose);
+    opacity: 0.7;
+  }
+
+  /* SECTIONS */
+  section { padding: var(--section-gap) 0; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--purple);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-tag::before {
+    content: '';
+    display: block;
+    width: 24px; height: 1px;
+    background: var(--purple);
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 4vw, 52px);
+    color: var(--amethyst);
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+  }
+  .section-lead {
+    font-size: 17px;
+    color: var(--ink-light);
+    line-height: 1.7;
+    max-width: 640px;
+    font-weight: 300;
+    margin-bottom: 60px;
+  }
+
+  /* PHASE 1 — TOPIC */
+  .topic-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .big-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-style: italic;
+    color: var(--amethyst);
+    line-height: 1.4;
+    padding-left: 28px;
+    border-left: 3px solid var(--rose);
+    margin-bottom: 40px;
+  }
+  .stat-row {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .stat-box {
+    flex: 1;
+    padding: 28px 24px;
+    border-right: 1px solid var(--border);
+  }
+  .stat-box:last-child { border-right: none; }
+  .stat-box-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: var(--amethyst);
+    margin-bottom: 6px;
+  }
+  .stat-box-label {
+    font-size: 12px;
+    color: var(--ink-light);
+    line-height: 1.5;
+  }
+  .chart-wrapper {
+    position: relative;
+    height: 300px;
+    width: 100%;
+    margin-bottom: 12px;
+  }
+  .chart-caption {
+    font-size: 12px;
+    color: var(--ink-light);
+    text-align: center;
+    letter-spacing: 0.03em;
+  }
+
+  /* PHASE 2 — RESEARCH */
+  .research-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    margin-bottom: 60px;
+  }
+  .research-card {
+    background: var(--off-white);
+    padding: 36px 28px;
+  }
+  .research-icon {
+    width: 40px; height: 40px;
+    background: var(--amethyst);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+  }
+  .research-icon svg { width: 20px; height: 20px; fill: none; stroke: #fff; stroke-width: 1.5; }
+  .research-card-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--amethyst);
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+  }
+  .research-card-body {
+    font-size: 14px;
+    color: var(--ink-light);
+    line-height: 1.6;
+  }
+  .interview-quotes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .quote-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    padding: 28px 24px;
+    position: relative;
+  }
+  .quote-card::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    color: var(--rose);
+    opacity: 0.3;
+    position: absolute;
+    top: 8px; left: 16px;
+    line-height: 1;
+  }
+  .quote-text {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--ink-mid);
+    margin-bottom: 16px;
+    padding-top: 24px;
+    font-style: italic;
+  }
+  .quote-source {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    color: var(--purple);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* PHASE 3 — PERSONAS */
+  .persona-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 48px;
+    border-bottom: 1px solid var(--border);
+  }
+  .persona-tab {
+    padding: 16px 28px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--ink-light);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .persona-tab.active {
+    color: var(--amethyst);
+    border-bottom-color: var(--purple);
+  }
+  .persona-tab:hover { color: var(--amethyst); }
+  .persona-content { display: none; }
+  .persona-content.active { display: grid; grid-template-columns: 300px 1fr; gap: 60px; }
+  .persona-card {
+    background: var(--amethyst);
+    padding: 36px 28px;
+    color: #fff;
+    position: sticky;
+    top: 80px;
+    align-self: start;
+  }
+  .persona-initial {
+    width: 64px; height: 64px;
+    background: var(--rose);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: var(--amethyst);
+    margin-bottom: 20px;
+  }
+  .persona-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    margin-bottom: 4px;
+  }
+  .persona-type {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 28px;
+  }
+  .persona-detail {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 13px;
+  }
+  .persona-detail-label { color: rgba(255,255,255,0.5); }
+  .persona-detail-val { color: rgba(255,255,255,0.9); font-weight: 500; }
+  .persona-info h4 {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--amethyst);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    margin-top: 32px;
+  }
+  .persona-info h4:first-child { margin-top: 0; }
+  .pain-list { list-style: none; }
+  .pain-list li {
+    font-size: 14px;
+    color: var(--ink-mid);
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .pain-list li::before {
+    content: '—';
+    position: absolute; left: 0;
+    color: var(--rose);
+  }
+  .emotion-curve {
+    margin-top: 32px;
+  }
+  .emotion-curve-label {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    color: var(--ink-light);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  /* PHASE 4 — RCA */
+  .rca-section { background: var(--amethyst); padding: var(--section-gap) 0; }
+  .rca-section .section-title { color: #fff; }
+  .rca-section .section-tag { color: var(--rose); }
+  .rca-section .section-tag::before { background: var(--rose); }
+  .rca-section .section-lead { color: rgba(255,255,255,0.6); }
+  .rca-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.1);
+  }
+  .rca-card {
+    background: var(--amethyst);
+    padding: 32px 28px;
+  }
+  .rca-why {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--rose);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .rca-pain {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: #fff;
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+  .rca-chain {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .rca-step {
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.4;
+  }
+  .rca-step::before {
+    content: attr(data-n);
+    position: absolute; left: 0;
+    color: rgba(255,255,255,0.2);
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+  }
+  .rca-root {
+    margin-top: 16px;
+    padding: 14px 16px;
+    background: rgba(115,0,113,0.4);
+    border-left: 2px solid var(--rose);
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.5;
+  }
+  .rca-root-label {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--rose);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 4px;
+  }
+
+  /* PHASE 5 — HMW */
+  .hmw-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .hmw-card {
+    border: 1px solid var(--border);
+    padding: 28px 24px;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .hmw-card:hover {
+    border-color: var(--purple);
+    transform: translateY(-2px);
+  }
+  .hmw-card::before {
+    content: 'HMW';
+    position: absolute;
+    top: -20px; right: -8px;
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    font-style: italic;
+    color: var(--border);
+    pointer-events: none;
+  }
+  .hmw-persona-tag {
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    margin-bottom: 16px;
+    display: inline-block;
+  }
+  .hmw-persona-tag.p1 { background: rgba(220,149,150,0.15); color: #8B4546; }
+  .hmw-persona-tag.p2 { background: rgba(115,0,113,0.1); color: var(--purple); }
+  .hmw-persona-tag.p3 { background: rgba(194,192,148,0.3); color: #5a5730; }
+  .hmw-question {
+    font-size: 15px;
+    color: var(--amethyst);
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  /* PHASE 6 — IDEATION */
+  .ideation-visual {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+  .rounds-list { list-style: none; }
+  .round-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 20px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+  .round-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    color: var(--sage-light);
+    line-height: 1;
+  }
+  .round-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--amethyst);
+    margin-bottom: 6px;
+  }
+  .round-body {
+    font-size: 13px;
+    color: var(--ink-light);
+    line-height: 1.6;
+  }
+  .ideas-count {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--amethyst);
+    padding: 60px 40px;
+    text-align: center;
+    gap: 8px;
+  }
+  .ideas-big {
+    font-family: 'Playfair Display', serif;
+    font-size: 96px;
+    color: #fff;
+    line-height: 1;
+  }
+  .ideas-label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .ideas-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    margin-top: 12px;
+    line-height: 1.5;
+    max-width: 200px;
+  }
+
+  /* PHASE 7 — TRIPLE-T */
+  .triple-t-section { background: #F0EDE6; }
+  .venn-container {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 60px;
+    align-items: start;
+  }
+  .venn-svg { width: 100%; max-width: 480px; }
+  .triple-t-breakdown { }
+  .ttt-category {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .ttt-cat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .ttt-cat-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--amethyst);
+  }
+  .ttt-cat-count {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--ink-light);
+  }
+  .ttt-bar-bg {
+    height: 6px;
+    background: rgba(57,0,64,0.1);
+    border-radius: 0;
+    overflow: hidden;
+  }
+  .ttt-bar-fill {
+    height: 100%;
+    border-radius: 0;
+    transition: width 1s ease;
+  }
+  .sweet-spot-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 40px;
+  }
+  .sweet-spot-card {
+    padding: 20px 18px;
+    background: var(--amethyst);
+    color: #fff;
+    position: relative;
+  }
+  .sweet-card-title {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+  .sweet-card-meta {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.04em;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* FINAL — SELECTED IDEAS */
+  .selected-section { background: #fff; }
+  .selected-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .selected-card {
+    padding: 32px 28px;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .selected-card.featured {
+    border-color: var(--purple);
+    background: rgba(115,0,113,0.03);
+  }
+  .selected-card::after {
+    content: attr(data-num);
+    position: absolute;
+    bottom: -20px; right: 12px;
+    font-family: 'Playfair Display', serif;
+    font-size: 100px;
+    color: rgba(57,0,64,0.05);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .selected-tags {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .tag {
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    padding: 3px 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .tag-d { background: rgba(220,149,150,0.15); color: #8B4546; }
+  .tag-f { background: rgba(194,192,148,0.25); color: #5a5730; }
+  .tag-v { background: rgba(115,0,113,0.1); color: var(--purple); }
+  .tag-short { background: rgba(57,0,64,0.08); color: var(--amethyst); }
+  .selected-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--amethyst);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .selected-body {
+    font-size: 14px;
+    color: var(--ink-light);
+    line-height: 1.7;
+  }
+  .effort-value {
+    display: flex;
+    gap: 24px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+  .ev-item { flex: 1; }
+  .ev-label {
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 6px;
+  }
+  .ev-bar-bg {
+    height: 4px;
+    background: rgba(57,0,64,0.1);
+    margin-bottom: 4px;
+  }
+  .ev-bar-fill { height: 100%; }
+  .ev-val {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--amethyst);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--amethyst);
+    padding: 60px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: end;
+  }
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  .footer-desc {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.6;
+    max-width: 380px;
+  }
+  .footer-phases {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+  .footer-phase {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    padding: 6px 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  /* DIVIDERS */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    margin: 60px 0;
+  }
+
+  /* JOURNEY MAP PREVIEW */
+  .journey-table-wrapper {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    margin-bottom: 40px;
+  }
+  .journey-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    min-width: 900px;
+  }
+  .journey-table th {
+    background: var(--amethyst);
+    color: rgba(255,255,255,0.7);
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 400;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+  .journey-table td {
+    padding: 14px 16px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--ink-mid);
+    line-height: 1.5;
+  }
+  .journey-table tr:last-child td { border-bottom: none; }
+  .journey-table .row-label {
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    background: #F5F3EE;
+    font-weight: 400;
+  }
+  .emo-score {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--amethyst);
+    text-align: center;
+  }
+  .emo-neg { color: var(--rose); }
+
+  .sticky-section-tag {
+    position: sticky;
+    top: 64px;
+    z-index: 10;
+    background: rgba(245,243,238,0.95);
+    backdrop-filter: blur(8px);
+    padding: 12px 48px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+  }
+  .sticky-phase-num {
+    background: var(--amethyst);
+    color: #fff;
+    padding: 3px 10px;
+    font-size: 10px;
+  }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .topic-split, .persona-content.active, .venn-container, .ideation-visual { grid-template-columns: 1fr; }
+    .research-grid, .interview-quotes, .hmw-grid, .rca-grid, .selected-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Unhoused</div>
+  <ul class="nav-links">
+    <li><a href="#topic">Topic</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#personas">Personas</a></li>
+    <li><a href="#rca">Root Cause</a></li>
+    <li><a href="#hmw">HMW</a></li>
+    <li><a href="#ideation">Ideation</a></li>
+    <li><a href="#synthesis">Synthesis</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Design Thinking — Full Journey</div>
+    <h1 class="hero-title">The <em>Housing</em><br>Crisis</h1>
+    <p class="hero-subtitle">A design thinking project exploring how middle-class buyers, informal residents, and urban renters navigate a broken housing system — and what we can do about it.</p>
+    <a href="#topic" class="hero-cta">Begin the journey <span class="hero-cta-arrow">↓</span></a>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stat-grid">
+      <div class="hero-stat">
+        <div class="hero-stat-num">3</div>
+        <div class="hero-stat-label">Distinct user personas researched</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">36</div>
+        <div class="hero-stat-label">Root causes identified across personas</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">635</div>
+        <div class="hero-stat-label">Ideas generated via structured ideation</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">7</div>
+        <div class="hero-stat-label">High-priority solutions short-listed</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE BAR -->
+<div class="phase-bar">
+  <div class="phase-item"><span class="phase-num">01</span> Topic Selection</div>
+  <div class="phase-item"><span class="phase-num">02</span> Research & Interviews</div>
+  <div class="phase-item"><span class="phase-num">03</span> Personas & Journey Maps</div>
+  <div class="phase-item"><span class="phase-num">04</span> Root Cause Analysis</div>
+  <div class="phase-item"><span class="phase-num">05</span> How Might We</div>
+  <div class="phase-item"><span class="phase-num">06</span> 6-3-5 Ideation</div>
+  <div class="phase-item"><span class="phase-num">07</span> Triple-T Synthesis</div>
+</div>
+
+<!-- PHASE 1: TOPIC -->
+<div class="sticky-section-tag">
+  <span class="sticky-phase-num">Phase 01</span>
+  Topic Selection
+</div>
+<section id="topic">
+  <div class="container">
+    <div class="section-tag">Phase 01</div>
+    <h2 class="section-title">Why housing?</h2>
+    <p class="section-lead">We started with a broad question: what systemic failure affects the most people but gets the least design attention? The answer emerged clearly from secondary data — housing.</p>
+
+    <div class="topic-split">
+      <div>
+        <div class="big-quote">
+          "Builders have left the middle-class segment entirely. The market is built for investors, not for families."
+        </div>
+        <div class="stat-row">
+          <div class="stat-box">
+            <div class="stat-box-num">5–7×</div>
+            <div class="stat-box-label">Average home price relative to annual income in Hyderabad</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-num">60%</div>
+            <div class="stat-box-label">Of income consumed by housing for stretched homeowners</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-num">2×</div>
+            <div class="stat-box-label">Lottery rejections for informal residents with no explanation</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="chart-wrapper">
+          <canvas id="affordabilityChart" role="img" aria-label="Bar chart comparing housing cost as percentage of income across user types">
+            Housing costs: Informal residents 73%, Stretched homeowners 60%, Urban renters 52%
+          </canvas>
+        </div>
+        <div class="chart-caption">Housing spend as % of income — by persona type</div>
+        <br>
+        <div class="chart-wrapper" style="height:220px">
+          <canvas id="priceIndexChart" role="img" aria-label="Line chart showing housing price index vs wage index over 15 years">
+            Housing price index diverging from wage growth over 15 years
+          </canvas>
+        </div>
+        <div class="chart-caption">Housing price index vs. wage growth (indexed to 100) — 15 year trend</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 2: RESEARCH -->
+<div class="sticky-section-tag">
+  <span class="sticky-phase-num">Phase 02</span>
+  Research & Interviews
+</div>
+<section id="research" style="background: #EDEADF;">
+  <div class="container">
+    <div class="section-tag">Phase 02</div>
+    <h2 class="section-title">Listening before designing</h2>
+    <p class="section-lead">We combined secondary research with primary interviews across three housing contexts — formal ownership, informal settlement, and urban renting.</p>
+
+    <div class="research-grid">
+      <div class="research-card">
+        <div class="research-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0112 0v2"/></svg>
+        </div>
+        <div class="research-card-title">In-depth interviews</div>
+        <div class="research-card-body">Semi-structured conversations with residents across income groups, exploring daily housing friction, documentation challenges, and emotional experiences.</div>
+      </div>
+      <div class="research-card">
+        <div class="research-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 17H5a2 2 0 00-2 2v2h18v-2a2 2 0 00-2-2h-4"/><rect x="9" y="3" width="6" height="10" rx="1"/></svg>
+        </div>
+        <div class="research-card-title">Secondary data review</div>
+        <div class="research-card-body">Analysis of RERA data, PMAY scheme reports, Hyderabad ward office processes, NoBroker/MagicBricks user flows, and RBI mortgage guidelines.</div>
+      </div>
+      <div class="research-card">
+        <div class="research-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 12l9-9 9 9M5 10v9a1 1 0 001 1h4v-5h4v5h4a1 1 0 001-1v-9"/></svg>
+        </div>
+        <div class="research-card-title">Field observation</div>
+        <div class="research-card-body">Visits to ward offices, informal settlements in Saidabad, and builder show-homes to understand the physical and procedural realities of housing access.</div>
+      </div>
+    </div>
+
+    <div class="interview-quotes">
+      <div class="quote-card">
+        <div class="quote-text">They keep sending me to different people. Nobody actually knows the rules. I waited 40 minutes only to be told to come back with a different form.</div>
+        <div class="quote-source">Didi — Informal resident, Saidabad</div>
+      </div>
+      <div class="quote-card">
+        <div class="quote-text">A 1BHK near Madhapur is going for 2 crore — that's not for people like us. The market has been handed over to investors entirely.</div>
+        <div class="quote-source">Suresh — Middle-income homeowner</div>
+      </div>
+      <div class="quote-card">
+        <div class="quote-text">Every listing in my budget is either too far or too small. I've been looking for 6 months. Nothing has changed. The market is not built for my salary.</div>
+        <div class="quote-source">Priya K. — Urban professional renter</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 3: PERSONAS & JOURNEY MAPS -->
+<div class="sticky-section-tag">
+  <span class="sticky-phase-num">Phase 03</span>
+  Personas & Journey Maps
+</div>
+<section id="personas">
+  <div class="container">
+    <div class="section-tag">Phase 03</div>
+    <h2 class="section-title">Three stories, one broken system</h2>
+    <p class="section-lead">We distilled our research into three research-grounded personas, each representing a distinct housing reality in Hyderabad.</p>
+
+    <div class="persona-tabs">
+      <div class="persona-tab active" onclick="switchPersona(0)">P1 — Suresh & Radha</div>
+      <div class="persona-tab" onclick="switchPersona(1)">P2 — Didi</div>
+      <div class="persona-tab" onclick="switchPersona(2)">P3 — Priya K.</div>
+    </div>
+
+    <!-- Persona 1 -->
+    <div class="persona-content active" id="persona-0">
+      <div class="persona-card">
+        <div class="persona-initial">S</div>
+        <div class="persona-name">Suresh & Radha</div>
+        <div class="persona-type">Stretched Homeowner</div>
+        <div class="persona-detail"><span class="persona-detail-label">Age</span><span class="persona-detail-val">Late 30s</span></div>
+        <div class="persona-detail"><span class="persona-detail-label">Income</span><span class="persona-detail-val">Dual, ₹1.4L/mo</span></div>
+        <div class="persona-detail"><span class="persona-detail-label">Location</span><span class="persona-detail-val">Hyderabad city</span></div>
+        <div class="persona-detail"><span class="persona-detail-label">Tech comfort</span><span class="persona-detail-val">High</span></div>
+        <div class="persona-detail"><span class="persona-detail-label">Housing status</span><span class="persona-detail-val">Over-leveraged owner</span></div>
+      </div>
+      <div class="persona-info">
+        <h4>Core goals</h4>
+        <ul class="pain-list">
+          <li>Own a home without sacrificing financial stability</li>
+          <li>Understand true affordability before committing</li>
+          <li>Access restructuring if income shocks hit</li>
+        </ul>
+        <h4>Key pain points</h4>
+        <ul class="pain-list">
+          <li>EMI consumes 60% of household income — zero buffer</li>
+          <li>Hidden costs (stamp duty, brokerage, interior) not disclosed upfront</li>
+          <li>No genuine affordable alternatives — take it or leave it market</li>
+          <li>Banks approved loans beyond safe thresholds with no stress test</li>
+          <li>Mortgage restructuring only available at default stage</li>
+        </ul>
+        <div class="emotion-curve">
+          <div class="emotion-curve-label">Emotional arc across housing journey</div>
+          <div class="chart-wrapper" style="height:180px">
+            <canvas id="emoChart0" role="img" aria-label="Emotion curve for Suresh and Radha across housing journey stages">Starts hopeful at +3, declines to -6 at crisis stage</canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Persona 2 -->
+    <div class="persona-content" id="persona-1">
+      <div class="persona-card">
+        <div class="persona-initial" style="background: var(--sage-light); color: var(--amethyst)">D</div>
+        <div class="persona-name">Didi</div>
+        <div class="persona-type">Informal Housing Resident</div>
+        <div class="persona-detail"><span class="persona-detail-label">Age</span><span class="persona-detail-val">40s</span></div>
+        <div class="persona-detail"><span class="persona-detail-label">Occupation</span><span class="persona-detail-val">Domestic / daily-wage</span></div>
+        <div class="persona-detail"><span class="persona-detail-label">Location</span><span class="persona-detail-val">Saidabad settlement</span></div>
+        <div class="persona-detail"><span class="persona-detail-label">Tech comfort</span><span class="persona-detail-val">Basic</span></div>
+        <div class="persona-detail"><span class="persona-detail-label">Housing status</span><span class="persona-detail-val">Informal renter, at risk</span></div>
+      </div>
+      <div class="persona-info">
+        <h4>Core goals</h4>
+        <ul class="pain-list">
+          <li>Not be displaced again — stable housing for family</li>
+          <li>Get children a proper study space</li>
+          <li>Successfully access a government housing scheme</li>
+        </ul>
+        <h4>Key pain points</h4>
+        <ul class="pain-list">
+          <li>Rent raised from ₹3,500 to ₹5,500 with no recourse</li>
+          <li>Hyderabad ration card required — impossible as a migrant</li>
+          <li>Staff at ward offices give contradictory instructions</li>
+          <li>Lottery results are opaque — no audit trail or appeal</li>
+          <li>Applied twice; rejected both times with no explanation</li>
+        </ul>
+        <div class="emotion-curve">
+          <div class="emotion-curve-label">Emotional arc across housing journey</div>
+          <div class="chart-wrapper" style="height:180px">
+            <canvas id="emoChart1" role="img" aria-label="Emotion curve for Didi">Starts at +1, drops to -8 at crisis</canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Persona 3 -->
+    <div class="persona-content" id="persona-2">
+      <div class="persona-card">
+        <div class="persona-initial" style="background: var(--sage); color: #fff">P</div>
+        <div class="persona-name">Priya K.</div>
+        <div class="persona-type">Urban Professional Renter</div>
+        <div class="persona-detail"><span class="persona-detail-label">Age</span><span class="persona-detail-val">Mid to late 20s</span></div>
+        <div class="persona-detail"><span class="persona-detail-label">Occupation</span><span class="persona-detail-val">Salaried professional</span></div>
+        <div class="persona-detail"><span class="persona-detail-label">Location</span><span class="persona-detail-val">Hyderabad city</span></div>
+        <div class="persona-detail"><span class="persona-detail-label">Tech comfort</span><span class="persona-detail-val">High</span></div>
+        <div class="persona-detail"><span class="persona-detail-label">Housing status</span><span class="persona-detail-val">Trapped renter</span></div>
+      </div>
+      <div class="persona-info">
+        <h4>Core goals</h4>
+        <ul class="pain-list">
+          <li>Build savings before the next rent hike</li>
+          <li>Find a stable, affordable place long-term</li>
+          <li>Eventually stop renting and own</li>
+        </ul>
+        <h4>Key pain points</h4>
+        <ul class="pain-list">
+          <li>Rent takes 50%+ of monthly income — zero discretionary spend</li>
+          <li>All listings either aspirational or inaccessible by commute</li>
+          <li>One-sided lease terms with no negotiating power</li>
+          <li>No government subsidy for first-entry costs like deposit</li>
+          <li>No path from renting to ownership in India</li>
+        </ul>
+        <div class="emotion-curve">
+          <div class="emotion-curve-label">Emotional arc across housing journey</div>
+          <div class="chart-wrapper" style="height:180px">
+            <canvas id="emoChart2" role="img" aria-label="Emotion curve for Priya K">Starts at +2, declines to -6</canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-tag">Journey Map — P2: Didi</div>
+    <h3 style="font-family:'Playfair Display',serif;font-size:28px;color:var(--amethyst);margin-bottom:24px;letter-spacing:-0.5px">
+      Tracing Didi's experience across six stages
+    </h3>
+    <div class="journey-table-wrapper">
+      <table class="journey-table">
+        <thead>
+          <tr>
+            <th style="width:120px">Row</th>
+            <th>Awareness</th>
+            <th>Search</th>
+            <th>Decision</th>
+            <th>Entry</th>
+            <th>Living</th>
+            <th>Crisis</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="row-label">Actions</td>
+            <td>Saves pamphlet; tells neighbours; asks children</td>
+            <td>Waits 40 min at ward office; redirected twice</td>
+            <td>Visits ration card office; contacts village panchayat</td>
+            <td>Travels across town; gets NGO help filling form</td>
+            <td>Pays raised rent ₹5,500; keeps collecting water at 5am</td>
+            <td>Checks ward notice board; hears about demolition</td>
+          </tr>
+          <tr>
+            <td class="row-label">Touchpoints</td>
+            <td>Word of mouth; wall pamphlet</td>
+            <td>Ward office; printed form</td>
+            <td>Ration card office; employer</td>
+            <td>Ward office; NGO volunteer; paper form</td>
+            <td>Neighbour network; landlord</td>
+            <td>Ward notice board; community network</td>
+          </tr>
+          <tr>
+            <td class="row-label">Thoughts</td>
+            <td>"Maybe this time something will come of it. I should at least try."</td>
+            <td>"They keep sending me to different people. Nobody knows the rules."</td>
+            <td>"I can't get the documents they want. My whole life is in the wrong place on paper."</td>
+            <td>"I don't know if I filled this correctly. I hope the volunteer understood my situation."</td>
+            <td>"I applied before and heard nothing. Why would this time be different?"</td>
+            <td>"The system is not made for people like me. I need to protect my children before demolition comes."</td>
+          </tr>
+          <tr>
+            <td class="row-label">Feels</td>
+            <td>Cautious hope; guarded optimism</td>
+            <td>Frustration; confusion; low-grade humiliation</td>
+            <td>Despair; trapped; sense of systemic exclusion</td>
+            <td>Anxious; fragile relief at having submitted something</td>
+            <td>Resigned anxiety; financial strain; exhaustion</td>
+            <td>Defeat; fear; deep sense of being permanently locked out</td>
+          </tr>
+          <tr>
+            <td class="row-label">Emotion</td>
+            <td><div class="emo-score">+1</div></td>
+            <td><div class="emo-score emo-neg">−2</div></td>
+            <td><div class="emo-score emo-neg">−5</div></td>
+            <td><div class="emo-score emo-neg">−4</div></td>
+            <td><div class="emo-score emo-neg">−4</div></td>
+            <td><div class="emo-score emo-neg">−8</div></td>
+          </tr>
+          <tr>
+            <td class="row-label">Pain points</td>
+            <td>No formal channels; scheme info not accessible</td>
+            <td>Staff give contradictory information; no single contact</td>
+            <td>Hyderabad ration card required — impossible for migrants</td>
+            <td>Lost wages attending office; no guidance on submissions</td>
+            <td>Zero communication post-submission; rent keeps rising</td>
+            <td>Opaque lottery; repeated rejection with no explanation</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 4: RCA -->
+<div class="sticky-section-tag" style="background:rgba(57,0,64,0.97);color:rgba(255,255,255,0.6)">
+  <span class="sticky-phase-num" style="background:var(--rose);color:var(--amethyst)">Phase 04</span>
+  Root Cause Analysis — 5 Whys
+</div>
+<section id="rca" class="rca-section">
+  <div class="container">
+    <div class="section-tag">Phase 04</div>
+    <h2 class="section-title">Following each pain to its root</h2>
+    <p class="section-lead">We applied the 5 Whys method to 12 pain points per persona — 36 chains in total — surfacing the systemic causes beneath surface-level symptoms.</p>
+
+    <div style="margin-bottom:40px">
+      <div class="chart-wrapper" style="height:260px">
+        <canvas id="rcaPersonaChart" role="img" aria-label="Grouped bar chart showing 12 root causes per persona">Each persona has 12 pain points mapped to root causes</canvas>
+      </div>
+      <div class="chart-caption">Root cause categories across 3 personas — 36 pain chains total</div>
+    </div>
+
+    <div class="rca-grid">
+      <div class="rca-card">
+        <div class="rca-why">P1 — Suresh & Radha</div>
+        <div class="rca-pain">No clear picture of what is affordable</div>
+        <div class="rca-chain">
+          <div class="rca-step" data-n="W1">Portals lead with premium listings only</div>
+          <div class="rca-step" data-n="W2">Developer ad budgets favour luxury stock</div>
+          <div class="rca-step" data-n="W3">No regulation on portal inventory mix</div>
+          <div class="rca-step" data-n="W4">Platforms driven by advertiser revenue</div>
+        </div>
+        <div class="rca-root">
+          <div class="rca-root-label">Root Cause</div>
+          Housing info ecosystem monetised by developers, not consumers
+        </div>
+      </div>
+      <div class="rca-card">
+        <div class="rca-why">P2 — Didi</div>
+        <div class="rca-pain">Hyderabad ration card required — impossible for migrants</div>
+        <div class="rca-chain">
+          <div class="rca-step" data-n="W1">Domicile-based eligibility criteria</div>
+          <div class="rca-step" data-n="W2">Scheme designed for settled residents, not migrants</div>
+          <div class="rca-step" data-n="W3">Migration not recognised in housing policy</div>
+          <div class="rca-step" data-n="W4">Policy based on static population assumptions</div>
+        </div>
+        <div class="rca-root">
+          <div class="rca-root-label">Root Cause</div>
+          Urban poor policy built for static populations
+        </div>
+      </div>
+      <div class="rca-card">
+        <div class="rca-why">P3 — Priya K.</div>
+        <div class="rca-pain">One-sided lease; no negotiating power</div>
+        <div class="rca-chain">
+          <div class="rca-step" data-n="W1">Standard lease heavily favours landlord</div>
+          <div class="rca-step" data-n="W2">No model tenancy enforcement in Telangana</div>
+          <div class="rca-step" data-n="W3">Model Tenancy Act not adopted by state</div>
+          <div class="rca-step" data-n="W4">Weak tenant protection frameworks</div>
+        </div>
+        <div class="rca-root">
+          <div class="rca-root-label">Root Cause</div>
+          Lack of political prioritisation for renter rights
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 40px; padding: 32px; background: rgba(115,0,113,0.2); border-left: 3px solid var(--rose);">
+      <div style="font-size:11px;font-family:'DM Mono',monospace;letter-spacing:0.08em;text-transform:uppercase;color:var(--rose);margin-bottom:12px">Cross-cutting insight</div>
+      <p style="font-family:'Playfair Display',serif;font-size:22px;color:#fff;line-height:1.5;font-style:italic">
+        "Across all three personas, root causes converge on the same structural failure: systems and policies designed for an imagined citizen — literate, settled, formally employed — that excludes the majority of actual users."
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 5: HMW -->
+<div class="sticky-section-tag">
+  <span class="sticky-phase-num">Phase 05</span>
+  How Might We Statements
+</div>
+<section id="hmw">
+  <div class="container">
+    <div class="section-tag">Phase 05</div>
+    <h2 class="section-title">Reframing problems as possibilities</h2>
+    <p class="section-lead">We converted each root cause into an opportunity-framed "How Might We" question — a bridge from diagnosis to design.</p>
+
+    <div class="hmw-grid">
+      <div class="hmw-card">
+        <span class="hmw-persona-tag p1">P1 — Homeowner</span>
+        <div class="hmw-question">How might we help middle-class families quickly understand what homes are actually affordable for their income, instead of overwhelming them with luxury listings?</div>
+      </div>
+      <div class="hmw-card">
+        <span class="hmw-persona-tag p2">P2 — Informal resident</span>
+        <div class="hmw-question">How might we make housing schemes accessible for migrants and informal workers who contribute to the city but lack local documents?</div>
+      </div>
+      <div class="hmw-card">
+        <span class="hmw-persona-tag p3">P3 — Urban renter</span>
+        <div class="hmw-question">How might we reduce the mismatch between rising urban rents and stagnant salaries for young professionals in Hyderabad?</div>
+      </div>
+      <div class="hmw-card">
+        <span class="hmw-persona-tag p2">P2 — Informal resident</span>
+        <div class="hmw-question">How might we ensure every applicant receives the same clear and accurate guidance regardless of which office or staff member they approach?</div>
+      </div>
+      <div class="hmw-card">
+        <span class="hmw-persona-tag p1">P1 — Homeowner</span>
+        <div class="hmw-question">How might we help people avoid taking home loans that look manageable on paper but quietly destroy their financial stability and quality of life?</div>
+      </div>
+      <div class="hmw-card">
+        <span class="hmw-persona-tag p3">P3 — Urban renter</span>
+        <div class="hmw-question">How might we improve transport and housing planning together so affordable housing doesn't automatically mean unbearable commutes?</div>
+      </div>
+    </div>
+
+    <div style="margin-top:40px; display:grid; grid-template-columns: repeat(3,1fr); gap:1px; background:var(--border);">
+      <div style="background:var(--off-white);padding:28px 24px;text-align:center;">
+        <div style="font-family:'Playfair Display',serif;font-size:40px;color:var(--amethyst)">12</div>
+        <div style="font-size:12px;color:var(--ink-light);margin-top:4px">HMW questions for P1</div>
+      </div>
+      <div style="background:var(--off-white);padding:28px 24px;text-align:center;">
+        <div style="font-family:'Playfair Display',serif;font-size:40px;color:var(--amethyst)">12</div>
+        <div style="font-size:12px;color:var(--ink-light);margin-top:4px">HMW questions for P2</div>
+      </div>
+      <div style="background:var(--off-white);padding:28px 24px;text-align:center;">
+        <div style="font-family:'Playfair Display',serif;font-size:40px;color:var(--amethyst)">12</div>
+        <div style="font-size:12px;color:var(--ink-light);margin-top:4px">HMW questions for P3</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 6: 6-3-5 IDEATION -->
+<div class="sticky-section-tag" style="background:rgba(245,243,238,0.97)">
+  <span class="sticky-phase-num">Phase 06</span>
+  6-3-5 Brainwriting
+</div>
+<section id="ideation" style="background:#EDE9DF;">
+  <div class="container">
+    <div class="section-tag">Phase 06</div>
+    <h2 class="section-title">Structured divergent thinking</h2>
+    <p class="section-lead">The 6-3-5 method — 6 participants, 3 ideas each, 5 rounds of iteration — generated a cascade of solutions, each building on the last. Ideas compounded across rounds.</p>
+
+    <div class="ideation-visual">
+      <ul class="rounds-list">
+        <li class="round-item">
+          <div class="round-num">R1</div>
+          <div>
+            <div class="round-title">Seed ideas</div>
+            <div class="round-body">Each participant generates 3 initial ideas independently, without influence from others. Raw, unfiltered responses to the HMW prompts.</div>
+          </div>
+        </li>
+        <li class="round-item">
+          <div class="round-num">R2</div>
+          <div>
+            <div class="round-title">First iteration</div>
+            <div class="round-body">Sheets rotate. Participants read existing ideas and build on, combine, or challenge them. Ideas begin acquiring specificity and depth.</div>
+          </div>
+        </li>
+        <li class="round-item">
+          <div class="round-num">R3</div>
+          <div>
+            <div class="round-title">Cross-pollination</div>
+            <div class="round-body">Themes from different HMW tracks begin merging. Systemic ideas emerge alongside product-level and policy interventions.</div>
+          </div>
+        </li>
+        <li class="round-item">
+          <div class="round-num">R4</div>
+          <div>
+            <div class="round-title">Challenge round</div>
+            <div class="round-body">Participants are invited to counter-argue or stress-test existing ideas — surfacing assumptions and strengthening robust concepts.</div>
+          </div>
+        </li>
+        <li class="round-item">
+          <div class="round-num">R5</div>
+          <div>
+            <div class="round-title">Synthesis</div>
+            <div class="round-body">Final round synthesises threads. Concepts like "Migrant Worker Housing Card" and "Affordability Dashboard" emerge in near-complete form.</div>
+          </div>
+        </li>
+      </ul>
+      <div>
+        <div class="ideas-count">
+          <div class="ideas-big">117</div>
+          <div class="ideas-label">Total raw ideas</div>
+          <div class="ideas-sub">generated across 5 rounds, 3 HMW tracks, and 6 participants</div>
+        </div>
+        <div style="margin-top:1px">
+          <div class="chart-wrapper" style="height:220px; background:#fff; padding:20px 16px 10px;">
+            <canvas id="ideaGrowthChart" role="img" aria-label="Line chart showing cumulative idea count growing across 5 rounds">Ideas grow from 18 in round 1 to 117 by round 5</canvas>
+          </div>
+          <div class="chart-caption" style="background:#fff;padding-bottom:12px">Cumulative ideas generated per round</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 7: TRIPLE-T -->
+<div class="sticky-section-tag">
+  <span class="sticky-phase-num">Phase 07</span>
+  Triple-T Synthesis
+</div>
+<section id="synthesis" class="triple-t-section">
+  <div class="container">
+    <div class="section-tag">Phase 07</div>
+    <h2 class="section-title">Finding the ideas that matter</h2>
+    <p class="section-lead">We categorised all ideas across three dimensions — Desirability, Feasibility, Viability — then filtered for short-to-medium time horizon and highest effort-to-value ratio.</p>
+
+    <div class="venn-container">
+      <div>
+        <svg class="venn-svg" viewBox="0 0 480 400" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="200" cy="160" r="130" fill="#DC9596" fill-opacity="0.15" stroke="#DC9596" stroke-width="1.5"/>
+          <circle cx="280" cy="160" r="130" fill="#730071" fill-opacity="0.12" stroke="#730071" stroke-width="1.5"/>
+          <circle cx="240" cy="240" r="130" fill="#A9A587" fill-opacity="0.15" stroke="#A9A587" stroke-width="1.5"/>
+          <text x="148" y="105" font-family="DM Sans, sans-serif" font-size="13" font-weight="500" fill="#8B4546">Desirability</text>
+          <text x="148" y="122" font-family="DM Mono, monospace" font-size="10" fill="#8B4546">Users want it</text>
+          <text x="298" y="105" font-family="DM Sans, sans-serif" font-size="13" font-weight="500" fill="#730071">Feasibility</text>
+          <text x="298" y="122" font-family="DM Mono, monospace" font-size="10" fill="#730071">Can be built</text>
+          <text x="196" y="345" font-family="DM Sans, sans-serif" font-size="13" font-weight="500" fill="#5a5730">Viability</text>
+          <text x="196" y="362" font-family="DM Mono, monospace" font-size="10" fill="#5a5730">Sustainable model</text>
+          <text x="200" y="190" font-family="Playfair Display, serif" font-size="11" font-style="italic" fill="#390040" text-anchor="middle">D + F</text>
+          <text x="278" y="190" font-family="Playfair Display, serif" font-size="11" font-style="italic" fill="#390040" text-anchor="middle">F + V</text>
+          <text x="238" y="232" font-family="Playfair Display, serif" font-size="11" font-style="italic" fill="#390040" text-anchor="middle">D + V</text>
+          <circle cx="238" cy="197" r="38" fill="#390040" fill-opacity="0.85"/>
+          <text x="238" y="191" font-family="Playfair Display, serif" font-size="13" font-weight="bold" fill="white" text-anchor="middle">Sweet</text>
+          <text x="238" y="207" font-family="Playfair Display, serif" font-size="13" font-weight="bold" fill="white" text-anchor="middle">Spot</text>
+          <text x="238" y="222" font-family="DM Mono, monospace" font-size="9" fill="rgba(255,255,255,0.6)" text-anchor="middle">D + F + V</text>
+        </svg>
+
+        <div style="margin-top:32px">
+          <div class="chart-wrapper" style="height:240px">
+            <canvas id="filterFunnelChart" role="img" aria-label="Funnel chart showing idea filtration from 117 total to 7 priority ideas">Funnel: 117 total, 44 desirable, 28 short-term, 7 highest value</canvas>
+          </div>
+          <div class="chart-caption">Idea filtration funnel</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="ttt-category">
+          <div class="ttt-cat-header">
+            <div class="ttt-cat-name">Desirability only</div>
+            <div class="ttt-cat-count">31 ideas</div>
+          </div>
+          <div class="ttt-bar-bg"><div class="ttt-bar-fill" style="width:85%;background:var(--rose)"></div></div>
+        </div>
+        <div class="ttt-category">
+          <div class="ttt-cat-header">
+            <div class="ttt-cat-name">Feasibility only</div>
+            <div class="ttt-cat-count">18 ideas</div>
+          </div>
+          <div class="ttt-bar-bg"><div class="ttt-bar-fill" style="width:50%;background:var(--purple)"></div></div>
+        </div>
+        <div class="ttt-category">
+          <div class="ttt-cat-header">
+            <div class="ttt-cat-name">Viability only</div>
+            <div class="ttt-cat-count">14 ideas</div>
+          </div>
+          <div class="ttt-bar-bg"><div class="ttt-bar-fill" style="width:40%;background:var(--sage)"></div></div>
+        </div>
+        <div class="ttt-category">
+          <div class="ttt-cat-header">
+            <div class="ttt-cat-name">D + V (desirable and viable)</div>
+            <div class="ttt-cat-count">22 ideas</div>
+          </div>
+          <div class="ttt-bar-bg"><div class="ttt-bar-fill" style="width:60%;background:var(--amethyst)"></div></div>
+        </div>
+        <div class="ttt-category">
+          <div class="ttt-cat-header">
+            <div class="ttt-cat-name">All three — Sweet Spot</div>
+            <div class="ttt-cat-count">32 ideas</div>
+          </div>
+          <div class="ttt-bar-bg"><div class="ttt-bar-fill" style="width:100%;background:var(--amethyst)"></div></div>
+        </div>
+
+        <div style="margin-top:32px;font-size:12px;color:var(--ink-light);font-family:'DM Mono',monospace;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:14px">Top sweet-spot ideas</div>
+        <div class="sweet-spot-grid">
+          <div class="sweet-spot-card">
+            <div class="sweet-card-title">Affordability dashboard comparing salaries with local housing costs</div>
+            <div class="sweet-card-meta">D + F + V · Short term</div>
+          </div>
+          <div class="sweet-spot-card">
+            <div class="sweet-card-title">Missed-call distress signal integrated with paralegal network</div>
+            <div class="sweet-card-meta">D + F + V · Short term</div>
+          </div>
+          <div class="sweet-spot-card">
+            <div class="sweet-card-title">Accept informal landlord declarations digitally as proof of residence</div>
+            <div class="sweet-card-meta">D + F + V · Short term</div>
+          </div>
+          <div class="sweet-spot-card">
+            <div class="sweet-card-title">Voice reminders in regional languages before application deadlines</div>
+            <div class="sweet-card-meta">D + F + V · Short term</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SELECTED IDEAS -->
+<div class="sticky-section-tag">
+  <span class="sticky-phase-num">Outcomes</span>
+  Priority Solutions
+</div>
+<section class="selected-section">
+  <div class="container">
+    <div class="section-tag">Priority solutions</div>
+    <h2 class="section-title">Highest value, lowest effort</h2>
+    <p class="section-lead">The final filter: among D+F+V ideas in the short-to-medium time horizon, we selected the seven that offered the highest impact relative to effort required.</p>
+
+    <div class="selected-grid">
+      <div class="selected-card featured" data-num="01">
+        <div class="selected-tags">
+          <span class="tag tag-d">Desirable</span>
+          <span class="tag tag-f">Feasible</span>
+          <span class="tag tag-v">Viable</span>
+          <span class="tag tag-short">Short term</span>
+        </div>
+        <div class="selected-title">Housing affordability dashboard</div>
+        <div class="selected-body">A public-facing tool that compares median local housing costs with ward-level salary data, giving buyers and renters a realistic picture of what they can actually afford — not what developers want them to aspire to.</div>
+        <div class="effort-value">
+          <div class="ev-item">
+            <div class="ev-label">Effort</div>
+            <div class="ev-bar-bg"><div class="ev-bar-fill" style="width:30%;background:var(--sage)"></div></div>
+            <div class="ev-val">Low</div>
+          </div>
+          <div class="ev-item">
+            <div class="ev-label">Value</div>
+            <div class="ev-bar-bg"><div class="ev-bar-fill" style="width:90%;background:var(--amethyst)"></div></div>
+            <div class="ev-val">Very High</div>
+          </div>
+        </div>
+      </div>
+      <div class="selected-card" data-num="02">
+        <div class="selected-tags">
+          <span class="tag tag-d">Desirable</span>
+          <span class="tag tag-f">Feasible</span>
+          <span class="tag tag-v">Viable</span>
+          <span class="tag tag-short">Short term</span>
+        </div>
+        <div class="selected-title">Missed-call paralegal escalation</div>
+        <div class="selected-body">Two missed calls within 48 hours auto-flags a housing case for supervisor review and triggers a paralegal callback within 2 hours — no literacy or smartphone required. Human and system working in parallel.</div>
+        <div class="effort-value">
+          <div class="ev-item">
+            <div class="ev-label">Effort</div>
+            <div class="ev-bar-bg"><div class="ev-bar-fill" style="width:40%;background:var(--sage)"></div></div>
+            <div class="ev-val">Medium-low</div>
+          </div>
+          <div class="ev-item">
+            <div class="ev-label">Value</div>
+            <div class="ev-bar-bg"><div class="ev-bar-fill" style="width:85%;background:var(--amethyst)"></div></div>
+            <div class="ev-val">High</div>
+          </div>
+        </div>
+      </div>
+      <div class="selected-card" data-num="03">
+        <div class="selected-tags">
+          <span class="tag tag-d">Desirable</span>
+          <span class="tag tag-f">Feasible</span>
+          <span class="tag tag-v">Viable</span>
+          <span class="tag tag-short">Short term</span>
+        </div>
+        <div class="selected-title">Accept informal proof of residence digitally</div>
+        <div class="selected-body">Legally recognise informal landlord declarations and union welfare registrations as valid eligibility documentation for housing schemes — shifting the burden of proof from the resident to the authorities.</div>
+        <div class="effort-value">
+          <div class="ev-item">
+            <div class="ev-label">Effort</div>
+            <div class="ev-bar-bg"><div class="ev-bar-fill" style="width:25%;background:var(--sage)"></div></div>
+            <div class="ev-val">Low</div>
+          </div>
+          <div class="ev-item">
+            <div class="ev-label">Value</div>
+            <div class="ev-bar-bg"><div class="ev-bar-fill" style="width:95%;background:var(--amethyst)"></div></div>
+            <div class="ev-val">Very high</div>
+          </div>
+        </div>
+      </div>
+      <div class="selected-card" data-num="04">
+        <div class="selected-tags">
+          <span class="tag tag-d">Desirable</span>
+          <span class="tag tag-f">Feasible</span>
+          <span class="tag tag-short">Medium term</span>
+        </div>
+        <div class="selected-title">Lottery public audit trail</div>
+        <div class="selected-body">Allow any applicant to request a score breakdown within 14 days — how many points for income, family size, tenure, disability — delivered via SMS or ward office. Backed by an independently audited Lottery Integrity Fund.</div>
+        <div class="effort-value">
+          <div class="ev-item">
+            <div class="ev-label">Effort</div>
+            <div class="ev-bar-bg"><div class="ev-bar-fill" style="width:50%;background:var(--sage)"></div></div>
+            <div class="ev-val">Medium</div>
+          </div>
+          <div class="ev-item">
+            <div class="ev-label">Value</div>
+            <div class="ev-bar-bg"><div class="ev-bar-fill" style="width:80%;background:var(--amethyst)"></div></div>
+            <div class="ev-val">High</div>
+          </div>
+        </div>
+      </div>
+      <div class="selected-card featured" data-num="05">
+        <div class="selected-tags">
+          <span class="tag tag-d">Desirable</span>
+          <span class="tag tag-f">Feasible</span>
+          <span class="tag tag-v">Viable</span>
+          <span class="tag tag-short">Short term</span>
+        </div>
+        <div class="selected-title">EMI long-term stress disclosure tool</div>
+        <div class="selected-body">A mandatory stress-test calculator that shows buyers what happens to their EMI if income drops 20%, rent rises, or a medical event occurs — presented before loan signing, not after default.</div>
+        <div class="effort-value">
+          <div class="ev-item">
+            <div class="ev-label">Effort</div>
+            <div class="ev-bar-bg"><div class="ev-bar-fill" style="width:35%;background:var(--sage)"></div></div>
+            <div class="ev-val">Low-medium</div>
+          </div>
+          <div class="ev-item">
+            <div class="ev-label">Value</div>
+            <div class="ev-bar-bg"><div class="ev-bar-fill" style="width:90%;background:var(--amethyst)"></div></div>
+            <div class="ev-val">Very high</div>
+          </div>
+        </div>
+      </div>
+      <div class="selected-card" data-num="06">
+        <div class="selected-tags">
+          <span class="tag tag-d">Desirable</span>
+          <span class="tag tag-v">Viable</span>
+          <span class="tag tag-short">Medium term</span>
+        </div>
+        <div class="selected-title">BOCW registration as housing eligibility proof</div>
+        <div class="selected-body">Accept Building and Other Construction Workers registration as proof of urban residency for housing scheme eligibility — with BOCW-registered workers auto-qualified via integrated portal, triggering an IVR outreach call on registration.</div>
+        <div class="effort-value">
+          <div class="ev-item">
+            <div class="ev-label">Effort</div>
+            <div class="ev-bar-bg"><div class="ev-bar-fill" style="width:45%;background:var(--sage)"></div></div>
+            <div class="ev-val">Medium</div>
+          </div>
+          <div class="ev-item">
+            <div class="ev-label">Value</div>
+            <div class="ev-bar-bg"><div class="ev-bar-fill" style="width:88%;background:var(--amethyst)"></div></div>
+            <div class="ev-val">High</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">Unhoused</div>
+    <div class="footer-desc">A design thinking investigation into the housing crisis affecting middle-class buyers, informal residents, and urban renters in Hyderabad — and a set of human-centred, actionable solutions.</div>
+  </div>
+  <div class="footer-phases">
+    <span class="footer-phase">Topic Selection</span>
+    <span class="footer-phase">Research</span>
+    <span class="footer-phase">Personas</span>
+    <span class="footer-phase">Root Cause</span>
+    <span class="footer-phase">HMW</span>
+    <span class="footer-phase">6-3-5</span>
+    <span class="footer-phase">Triple-T</span>
+  </div>
+</footer>
+
+<script>
+function switchPersona(idx) {
+  document.querySelectorAll('.persona-tab').forEach((t,i) => t.classList.toggle('active', i===idx));
+  document.querySelectorAll('.persona-content').forEach((c,i) => c.classList.toggle('active', i===idx));
+}
+
+const AMETHYST = '#390040';
+const PURPLE = '#730071';
+const ROSE = '#DC9596';
+const SAGE = '#A9A587';
+const SAGE_LIGHT = '#C2C094';
+
+Chart.defaults.font.family = "'DM Sans', sans-serif";
+Chart.defaults.color = '#7a6678';
+
+new Chart(document.getElementById('affordabilityChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Informal residents (Didi)', 'Stretched homeowners\n(Suresh & Radha)', 'Urban renters (Priya K.)'],
+    datasets: [{
+      label: 'Housing spend % of income',
+      data: [73, 60, 52],
+      backgroundColor: [PURPLE, AMETHYST, ROSE],
+      borderRadius: 0,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: { label: ctx => `${ctx.raw}% of income on housing` }
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true, max: 100,
+        ticks: { callback: v => v + '%', font: { size: 11 } },
+        grid: { color: 'rgba(57,0,64,0.06)' }
+      },
+      x: { grid: { display: false }, ticks: { font: { size: 11 } } }
+    }
+  }
+});
+
+new Chart(document.getElementById('priceIndexChart'), {
+  type: 'line',
+  data: {
+    labels: ['2010','2012','2014','2016','2018','2020','2022','2024','2025'],
+    datasets: [
+      {
+        label: 'Housing price index',
+        data: [100,118,140,168,210,238,290,340,370],
+        borderColor: PURPLE,
+        borderWidth: 2,
+        fill: false,
+        tension: 0.3,
+        pointRadius: 3,
+        pointBackgroundColor: PURPLE,
+        borderDash: [],
+      },
+      {
+        label: 'Wage index',
+        data: [100,108,114,120,128,132,138,144,148],
+        borderColor: SAGE,
+        borderWidth: 2,
+        fill: false,
+        tension: 0.3,
+        pointRadius: 3,
+        pointBackgroundColor: SAGE,
+        borderDash: [4,4],
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+    },
+    scales: {
+      y: {
+        ticks: { font: { size: 11 } },
+        grid: { color: 'rgba(57,0,64,0.06)' }
+      },
+      x: { grid: { display: false }, ticks: { font: { size: 11 } } }
+    }
+  }
+});
+
+const emoStages = ['Awareness','Search','Decision','Entry','Living','Crisis'];
+const emoColors = {
+  positive: '#A9A587',
+  negative: '#DC9596'
+};
+function makeEmoChart(id, scores) {
+  const colors = scores.map(s => s >= 0 ? emoColors.positive : emoColors.negative);
+  new Chart(document.getElementById(id), {
+    type: 'line',
+    data: {
+      labels: emoStages,
+      datasets: [{
+        label: 'Emotion score',
+        data: scores,
+        borderColor: PURPLE,
+        borderWidth: 2,
+        fill: { target: 'origin', above: 'rgba(169,165,135,0.15)', below: 'rgba(220,149,150,0.2)' },
+        tension: 0.4,
+        pointRadius: 5,
+        pointBackgroundColor: colors,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: {
+          min: -10, max: 5,
+          ticks: { font: { size: 10 } },
+          grid: { color: 'rgba(57,0,64,0.06)' }
+        },
+        x: { grid: { display: false }, ticks: { font: { size: 10 } } }
+      }
+    }
+  });
+}
+makeEmoChart('emoChart0', [3, -2, -4, -3, -5, -6]);
+makeEmoChart('emoChart1', [1, -2, -5, -4, -4, -8]);
+makeEmoChart('emoChart2', [2, -2, -3, -4, -5, -6]);
+
+new Chart(document.getElementById('rcaPersonaChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Policy gap','System design','Governance','Market failure','Legal framework','Data access','Communication','Eligibility','Tenant rights','Transparency','Financial','Infrastructure'],
+    datasets: [
+      { label: 'P1 Suresh & Radha', data: [3,2,1,4,1,2,0,1,1,1,3,1], backgroundColor: AMETHYST, borderRadius: 0 },
+      { label: 'P2 Didi', data: [2,1,3,0,3,1,3,4,0,2,0,1], backgroundColor: PURPLE, borderRadius: 0 },
+      { label: 'P3 Priya K.', data: [2,1,1,3,2,1,1,1,3,2,1,2], backgroundColor: ROSE, borderRadius: 0 },
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+    },
+    scales: {
+      x: { stacked: false, grid: { display: false }, ticks: { font: { size: 9 }, maxRotation: 45 } },
+      y: { grid: { color: 'rgba(57,0,64,0.06)' }, ticks: { font: { size: 10 } } }
+    }
+  }
+});
+
+new Chart(document.getElementById('ideaGrowthChart'), {
+  type: 'line',
+  data: {
+    labels: ['Round 1','Round 2','Round 3','Round 4','Round 5'],
+    datasets: [{
+      label: 'Cumulative ideas',
+      data: [18, 38, 63, 89, 117],
+      borderColor: AMETHYST,
+      borderWidth: 2.5,
+      fill: true,
+      backgroundColor: 'rgba(57,0,64,0.07)',
+      tension: 0.4,
+      pointRadius: 5,
+      pointBackgroundColor: AMETHYST,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { grid: { color: 'rgba(57,0,64,0.06)' }, ticks: { font: { size: 11 } } },
+      x: { grid: { display: false }, ticks: { font: { size: 11 } } }
+    }
+  }
+});
+
+new Chart(document.getElementById('filterFunnelChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Total ideas', 'D + F + V ideas', 'Short/mid-term', 'High value/effort', 'Priority 7'],
+    datasets: [{
+      label: 'Ideas remaining',
+      data: [117, 32, 28, 14, 7],
+      backgroundColor: [
+        'rgba(169,165,135,0.5)',
+        'rgba(115,0,113,0.4)',
+        'rgba(115,0,113,0.6)',
+        'rgba(57,0,64,0.7)',
+        '#390040',
+      ],
+      borderRadius: 0,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => `${ctx.raw} ideas` } }
+    },
+    scales: {
+      x: { grid: { color: 'rgba(57,0,64,0.06)' }, ticks: { font: { size: 11 } } },
+      y: { grid: { display: false }, ticks: { font: { size: 11 } } }
+    }
+  }
+});
+</script>
+</body>
+</html>
