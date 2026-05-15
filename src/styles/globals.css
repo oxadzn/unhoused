@@ -45,6 +45,16 @@ body {
   body { cursor: auto; }
 }
 
+::selection {
+  background: var(--purple);
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background: var(--purple);
+  color: #ffffff;
+}
+
 /* ── TYPOGRAPHY ── */
 .font-display {
   font-family: 'Playfair Display', serif;
