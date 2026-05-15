@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import {
-  BarChart, Bar, LineChart, Line, XAxis, YAxis,
+  BarChart, Bar, Cell, LineChart, Line, XAxis, YAxis,
   CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine
 } from 'recharts';
 import ChartWrapper from '../ui/ChartWrapper';
@@ -160,14 +160,11 @@ export default function TopicSection() {
                   <XAxis dataKey="name" tick={{ fontSize: 11, fontFamily: "'DM Sans', sans-serif", fill: '#7a6678' }} />
                   <YAxis domain={[0, 100]} tickFormatter={v => `${v}%`} tick={{ fontSize: 11, fill: '#7a6678' }} />
                   <Tooltip content={<CustomBarTooltip />} />
-                  <Bar dataKey="value" name="Housing spend" isAnimationActive animationDuration={1000}>
+                  <Bar dataKey="value" isAnimationActive animationDuration={1000}>
                     {SPEND_DATA.map((entry, index) => (
-                      <rect key={index} fill={entry.color} />
+                      <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Bar>
-                  {SPEND_DATA.map(entry => (
-                    <Bar key={entry.name} dataKey="value" fill={entry.color} />
-                  ))}
                 </BarChart>
               </ResponsiveContainer>
             </ChartWrapper>

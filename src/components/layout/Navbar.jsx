@@ -3,10 +3,12 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 const NAV_LINKS = [
+  { num: '—', href: '#reality', label: 'Reality' },
+  { num: '∿', href: '#calculator', label: 'Calculator' },
   { num: '01', href: '#topic', label: 'Topic' },
   { num: '02', href: '#research', label: 'Research' },
   { num: '03', href: '#personas', label: 'Personas' },
-  { num: '03B', href: '#journey-maps', label: 'Journey Maps' },
+  { num: '03B', href: '#journey-maps', label: 'Journeys' },
   { num: '04', href: '#rca', label: 'Root Cause' },
   { num: '05', href: '#hmw', label: 'HMW' },
   { num: '06', href: '#ideation', label: '6-3-5' },
@@ -49,6 +51,8 @@ export default function Navbar() {
 
   return (
     <motion.nav
+      role="navigation"
+      aria-label="Main navigation"
       initial={{ y: -80, opacity: 0, x: '-50%' }}
       animate={{ y: scrolled ? 24 : 0, opacity: 1, x: '-50%' }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -65,6 +69,7 @@ export default function Navbar() {
         background: scrolled ? 'rgba(57,0,64,0.95)' : 'transparent',
         borderRadius: scrolled ? '32px' : '0px',
         boxShadow: scrolled ? '0 8px 32px rgba(57,0,64,0.2)' : 'none',
+        backdropFilter: scrolled ? 'blur(12px)' : 'none',
         transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
       }}
     >
@@ -77,6 +82,7 @@ export default function Navbar() {
               <a
                 href={href}
                 onClick={e => handleClick(e, href)}
+                aria-current={isActive ? 'page' : undefined}
                 style={{
                   fontSize: '11px',
                   fontWeight: isActive ? 500 : 400,
@@ -86,18 +92,18 @@ export default function Navbar() {
                   textTransform: 'uppercase',
                   whiteSpace: 'nowrap',
                   transition: 'color 0.2s',
-                  padding: scrolled ? '10px 16px' : '0 14px',
+                  padding: scrolled ? '10px 14px' : '0 12px',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '8px',
+                  gap: '7px',
                   fontFamily: "'DM Mono', monospace",
                   background: scrolled && isActive ? 'rgba(255,255,255,0.1)' : 'transparent',
                   borderRadius: scrolled ? '20px' : '0px',
                 }}
               >
-                <span style={{ 
-                  color: scrolled ? (isActive ? '#DC9596' : 'rgba(220,149,150,0.4)') : (isActive ? '#DC9596' : '#DC959680'), 
-                  fontSize: '9px' 
+                <span style={{
+                  color: scrolled ? (isActive ? '#DC9596' : 'rgba(220,149,150,0.4)') : (isActive ? '#DC9596' : '#DC959680'),
+                  fontSize: '9px'
                 }}>{num}</span>
                 {label}
               </a>

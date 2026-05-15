@@ -24,13 +24,35 @@ const RADAR_DATA = [
 const CustomRadarTooltip = ({ active, payload }) => {
   if (!active || !payload?.length) return null;
   return (
-    <div style={{ background: '#390040', color: '#fff', padding: '10px 14px', fontSize: '12px' }}>
+    <div style={{
+      background: 'rgba(26, 16, 21, 0.92)',
+      border: '1px solid rgba(255,255,255,0.1)',
+      padding: '10px 14px',
+      fontSize: '12px',
+      backdropFilter: 'blur(8px)',
+      minWidth: '180px',
+    }}>
       {payload.map(p => (
-        <div key={p.dataKey} style={{ color: p.color }}>{p.name}: {p.value}/10</div>
+        <div
+          key={p.dataKey}
+          style={{
+            color: '#fff',
+            paddingLeft: '10px',
+            borderLeft: `3px solid ${p.color}`,
+            marginBottom: '6px',
+            lineHeight: 1.4,
+            fontFamily: "'DM Mono', monospace",
+            letterSpacing: '0.02em',
+          }}
+        >
+          <span style={{ color: 'rgba(255,255,255,0.55)', fontSize: '11px', display: 'block' }}>{p.name}</span>
+          <span style={{ fontFamily: "'Playfair Display', serif", fontSize: '16px' }}>{p.value}<span style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)' }}>/10</span></span>
+        </div>
       ))}
     </div>
   );
 };
+
 
 function SolutionCard({ idea }) {
   const isFeatured = FEATURED.includes(idea.rank);

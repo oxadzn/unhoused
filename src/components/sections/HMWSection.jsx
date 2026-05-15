@@ -19,6 +19,25 @@ const PERSONA_LABELS = {
 
 const FILTERS = ['All', 'P1', 'P2', 'P3'];
 
+// Top-impact cards based on tripleT sweet spot HMW links
+const IMPACT_IDS = new Set(['P1-1', 'P1-6', 'P2-6', 'P2-9', 'P2-11', 'P3-9']);
+
+// Root cause short descriptions keyed by HMW id (for expand layer)
+const HMW_ROOTS = {
+  'P1-1': 'Housing info monetised by developers, not consumers',
+  'P1-2': 'Market info scattered across 10+ disconnected sources',
+  'P1-6': 'No mandatory long-term EMI stress disclosure before signing',
+  'P1-7': 'Regulation designed around sale price, not ownership cost',
+  'P1-10': 'No safety net for over-leveraged homeowners',
+  'P2-5': 'Urban poor policy built for static, settled populations',
+  'P2-6': 'State never legally recognised informal settlements',
+  'P2-9': 'Transparency obligations stop at policy, not operational level',
+  'P2-11': 'Housing allocation designed without grievance architecture',
+  'P3-6': 'Lack of political prioritisation for renter rights',
+  'P3-9': 'Free-market rental system without affordability safeguards',
+  'P3-12': 'Structural policy bias toward ownership over renting',
+};
+
 export default function HMWSection() {
   const [activeFilter, setActiveFilter] = useState('All');
   const [headerRef, headerInView] = useInView({ threshold: 0.2, triggerOnce: true });
@@ -87,7 +106,7 @@ export default function HMWSection() {
           >
             <AnimatePresence mode="popLayout">
               {filtered.map((card) => (
-                <motion.div
+            <motion.div
                   key={card.id}
                   layout
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -97,10 +116,25 @@ export default function HMWSection() {
                   whileHover={{ y: -4, boxShadow: '0 12px 32px rgba(57,0,64,0.1)' }}
                   className="hmw-card"
                   data-hover
+                  tabIndex={0}
                 >
+                  {IMPACT_IDS.has(card.id) && (
+                    <div className="hmw-impact-badge" aria-label="High impact">★ High impact</div>
+                  )}
                   <span className={`persona-tag ${card.persona.toLowerCase()}`}>{PERSONA_LABELS[card.persona]}</span>
                   <div className="hmw-question">{card.hmw}</div>
                   <div className="hmw-pain">{card.pain}</div>
+                  {/* Hover expand layer */}
+                  <div className="hmw-expand-layer" aria-hidden="true">
+                    {HMW_ROOTS[card.id] && (
+                      <div className="hmw-root-link">
+                        Root cause: <strong>{HMW_ROOTS[card.id]}</strong>
+                      </div>
+                    )}
+                    <div style={{ fontSize: '11px', color: 'var(--purple)', fontFamily: "'DM Mono', monospace", letterSpacing: '0.04em' }}>
+                      → Linked to design opportunity
+                    </div>
+                  </div>
                 </motion.div>
               ))}
             </AnimatePresence>
