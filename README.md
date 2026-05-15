@@ -4,35 +4,35 @@ An editorial-style, scroll-driven interactive web experience documenting a compr
 
 ## Overview
 
-This project translates a complex 7-phase design thinking methodology into a highly visual, data-rich digital narrative. By blending modern web design aesthetics with robust interactive charts and fluid animations, this single-page application (SPA) brings ethnographic research, root-cause analysis, and proposed solutions to life.
+This project translates a complex 7-phase design thinking methodology into a highly visual, data-rich digital narrative. By blending modern web design aesthetics with robust interactive tools, fluid animations, and immersive data visualization, this single-page application (SPA) brings ethnographic research, root-cause analysis, and proposed solutions to life.
 
-### The 7 Phases Documented:
-1. **Topic Selection:** Introduction to the housing crisis context in Hyderabad.
-2. **Research:** Core ethnographic and secondary research metrics.
-3. **Personas & Journey Maps:** Detailed profiles (e.g., Stretched Homeowner, Urban Renter, Informal Resident) and emotional journey tracking.
+### The Interactive Journey:
+1. **The Financial Reality:** Emotional income and expense breakdowns for three distinct personas.
+2. **Affordability Calculator:** A live, interactive tool letting users estimate safe rent budgets against actual neighborhood median rents in Hyderabad.
+3. **Research & Journey Maps:** Core ethnographic metrics and detailed emotional journey tracking with "Day in the Life" interactive accordions.
 4. **Root Cause Analysis (5 Whys):** Uncovering systemic issues causing housing distress.
-5. **How Might We (HMW):** Reframing pain points into actionable design questions.
-6. **6-3-5 Brainwriting:** Structured ideation splitting 4x3x5 and 3x3x5 workflows.
-7. **Triple-T Synthesis:** Evaluating solutions across Desirability, Feasibility, and Viability to identify "Top Ideas."
+5. **EMI Stress Estimator:** An interactive simulator testing loan resilience against sudden income drops.
+6. **How Might We (HMW):** Reframing pain points into actionable design questions with hover-expand root-cause linkages.
+7. **Ideation & Synthesis:** Structured 6-3-5 brainwriting and Triple-T evaluation across Desirability, Feasibility, and Viability to identify "Top Ideas."
 
 ## Tech Stack
 
 This project was built with a modern frontend stack focused on performance, modularity, and high-fidelity interactions:
 
 - **Framework:** [React 18](https://react.dev/) built with [Vite](https://vitejs.dev/) for rapid development.
-- **Animations:** [Framer Motion](https://www.framer.com/motion/) for fluid, staggered, and scroll-triggered animations.
+- **Animations:** [Framer Motion](https://www.framer.com/motion/) and custom CSS keyframes for fluid, staggered, and ambient motion.
 - **Smooth Scrolling:** [Lenis](https://lenis.studiofreight.com/) for a native-feeling, buttery smooth scroll experience.
 - **Data Visualization:** [Recharts](https://recharts.org/) for highly customized, responsive SVG charts (Radar, Area, Bar).
 - **WebGL Backgrounds:** [OGL](https://github.com/oframe/ogl) used for the custom, performant `GradientBlinds` background texture.
-- **Styling:** Vanilla CSS with custom CSS variables and modern properties (e.g., `backdrop-filter` for glassmorphism).
+- **Styling:** Vanilla CSS with custom CSS variables, modern properties (`backdrop-filter`), and mobile-first responsive design.
 
 ## Features & Highlights
 
+- **Interactive Product Tools:** Integrated Affordability Calculator and EMI Risk Estimator transform static data into personalized, exploratory tools.
+- **Ambient Motion Design:** GPU-accelerated canvas particles, drifting blurred orbs, and subtle scan-line animations create a dynamic, "alive" feel that fully respects `prefers-reduced-motion`.
 - **Editorial UI/UX:** A bespoke design system inspired by high-end print magazines featuring elegant typography (Playfair Display & DM Sans/Mono).
-- **Dynamic WebGL Background:** A custom WebGL shader (`GradientBlinds`) creating a subtle, animated off-white texture that responds organically without distracting from the content.
-- **Glassmorphism:** HMW cards and UI elements utilize frosted-glass aesthetics with `backdrop-filter` to let background textures bleed through.
+- **Glassmorphism:** Cards and UI elements utilize frosted-glass aesthetics with `backdrop-filter` to let background textures bleed through.
 - **Floating Phase Navbar:** An intelligent, pill-shaped navigation system that tracks scroll progress and updates active phases dynamically.
-- **Gradual Fade Transitions:** Custom CSS mask implementations (`GradualBlur`) ensuring smooth transitions between content and footers without harsh gradient lines.
 
 ## Getting Started
 
@@ -64,7 +64,7 @@ Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
 
 ## Data Architecture
 
-The entire content of the site is managed via a centralized JSON configuration (`src/data/housing-data.json`). This allows the design thinking content, statistics, and chart data to be decoupled from the React components, making future updates seamless.
+The core textual content and structural configuration of the site is managed via centralized JSON configurations (`src/data/housing-data.json`). This allows the design thinking content to be cleanly separated from the React components.
 
 ## Design System
 
