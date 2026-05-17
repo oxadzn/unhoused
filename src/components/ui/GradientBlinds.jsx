@@ -53,7 +53,7 @@ const GradientBlinds = ({
     if (!container) return;
 
     const renderer = new Renderer({
-      dpr: dpr ?? (typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1),
+      dpr: dpr ?? (typeof window !== 'undefined' ? Math.min(1.5, window.devicePixelRatio || 1) : 1),
       alpha: true,
       antialias: true
     });
@@ -269,8 +269,14 @@ void main() {
     };
     canvas.addEventListener('pointermove', onPointerMove);
 
+    let lastRenderTime = 0;
     const loop = t => {
       rafRef.current = requestAnimationFrame(loop);
+      
+      // Throttle rendering to ~25fps (every 40ms) to resolve browser scroll lag
+      if (t - lastRenderTime < 40) return;
+      lastRenderTime = t;
+
       uniforms.iTime.value = t * 0.001;
       if (mouseDampening > 0) {
         if (!lastTimeRef.current) lastTimeRef.current = t;

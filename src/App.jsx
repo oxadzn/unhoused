@@ -23,6 +23,7 @@ import IdeationSection from './components/sections/IdeationSection';
 import SynthesisSection from './components/sections/SynthesisSection';
 import SolutionsSection from './components/sections/SolutionsSection';
 import EMIStressSection from './components/sections/EMIStressSection';
+import PrototypeSection from './components/sections/PrototypeSection';
 
 function LoadingFallback() {
   return (
@@ -89,10 +90,11 @@ function App() {
         <IdeationSection />
         <SynthesisSection />
         <SolutionsSection />
+        <PrototypeSection />
       </main>
 
       {/* Bottom Footer Blur */}
-      <GradualBlur position="bottom" height="5rem" strength={0.5} divCount={8} curve="linear" target="page" zIndex={900} />
+      <GradualBlur position="bottom" height="5rem" strength={0.5} divCount={4} curve="linear" target="page" zIndex={900} />
       <Footer />
       <BackToTop />
     </>

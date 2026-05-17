@@ -14,6 +14,7 @@ const NAV_LINKS = [
   { num: '06', href: '#ideation', label: '6-3-5' },
   { num: '07', href: '#synthesis', label: 'Triple-T' },
   { num: '—', href: '#solutions', label: 'Solutions' },
+  { num: '—', href: '#prototype', label: 'Prototype' },
 ];
 
 export default function Navbar() {
