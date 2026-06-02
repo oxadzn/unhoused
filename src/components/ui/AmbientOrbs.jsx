@@ -46,12 +46,13 @@ export default function AmbientOrbs({
             className="ambient-orb"
             style={{
               position: 'absolute',
-              width: orb.size,
-              height: orb.size,
+              // Use radial-gradient instead of filter:blur — avoids Firefox's
+              // per-frame CPU blur recomposition on animated elements.
+              width: orb.size * 2.2,
+              height: orb.size * 2.2,
               borderRadius: '50%',
-              background: orb.color,
-              filter: `blur(${Math.round(orb.size * 0.38)}px)`,
-              opacity: maxOpacity,
+              background: `radial-gradient(circle, ${orb.color} 0%, transparent 70%)`,
+              opacity: maxOpacity * 1.4,
               left: `${orb.left}%`,
               top: `${orb.top}%`,
               transform: 'translate(-50%, -50%)',

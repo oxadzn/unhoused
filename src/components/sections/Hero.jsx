@@ -7,9 +7,9 @@ import FloatingParticles from '../ui/FloatingParticles';
 
 const HERO_STATS = [
   { value: '5–7×', label: 'Home price to income ratio', source: 'NHB 2024', color: '#C2C094', trend: '↑ Every year since 2010' },
-  { value: 73, suffix: '%', label: 'Income on housing — informal residents', source: 'Primary research', color: '#DC9596', trend: '↑ Was 52% in 2018' },
+  { value: 73, suffix: '%', label: 'Income on housing — informal residents', source: 'Primary research', color: '#DC9596', trend: 'Rent raised 57% in 6 years' },
   { value: 36, label: 'Root causes identified across 3 personas', source: 'RCA', color: '#730071', trend: 'Systemic — not individual' },
-  { value: 117, label: 'Ideas generated via 6-3-5 brainwriting', source: 'Ideation', color: '#A9A587', trend: '7 priority solutions shortlisted' },
+  { value: 840, label: 'Ideas generated via 6-3-5 brainwriting', source: 'Ideation', color: '#A9A587', trend: '7 priority solutions shortlisted' },
 ];
 
 const TICKER_ITEMS = [
@@ -199,8 +199,8 @@ export default function Hero() {
           {['For most', 'families,', 'home is out of reach.'].map((line, i) => (
             <motion.div
               key={line}
-              initial={{ opacity: 0, y: 32, filter: 'blur(4px)' }}
-              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              initial={{ opacity: 0, y: 32 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.35 + i * 0.12, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               style={{
                 fontFamily: "'Playfair Display', serif",

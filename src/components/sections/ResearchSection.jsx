@@ -27,7 +27,7 @@ const QUOTES = [
     source: 'Didi — Informal resident, Saidabad',
   },
   {
-    text: 'A 1BHK near Madhapur is going for 2 crore — that\'s not for people like us. The market has been handed over to investors entirely.',
+    text: 'A decent 2BHK near Madhapur is going for 1.2 crore — that\'s not for people like us. The market has been handed over to investors entirely.',
     source: 'Suresh — Middle-income homeowner',
   },
   {

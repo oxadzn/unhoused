@@ -29,7 +29,7 @@ const REALITY_CARDS = [
       { label: 'Rent (1 room, 4 people)', val: '₹5,500', pct: 55 },
       { label: 'Water — purchased cans', val: '₹800', pct: 8 },
       { label: 'School fees (2 children)', val: '₹1,200', pct: 12 },
-      { label: 'Food', val: '₹2,000', pct: 20 },
+      { label: 'Food', val: '₹1,800', pct: 18 },
       { label: 'Transport + misc', val: '₹700', pct: 7 },
     ],
     savings: { label: 'Monthly savings', val: '₹0', pct: 0, color: '#DC9596' },

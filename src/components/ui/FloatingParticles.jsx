@@ -78,9 +78,8 @@ export default function FloatingParticles({
 
         ctx.globalAlpha = p.o;
         ctx.fillStyle = color;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
+        // fillRect is 3–4× faster than arc() in Firefox's canvas implementation
+        ctx.fillRect(p.x - p.r, p.y - p.r, p.r * 2, p.r * 2);
       }
       ctx.globalAlpha = 1;
 
