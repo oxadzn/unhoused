@@ -234,8 +234,8 @@ export default function PrototypeSection() {
             The Prototype
           </motion.div>
           <motion.h2
-            initial={{ opacity: 0, y: 30, filter: 'blur(4px)' }}
-            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.1 }}
             style={{ fontFamily: "'Playfair Display', serif", fontSize: '48px', color: '#390040', marginBottom: '24px', lineHeight: 1.1 }}
@@ -247,7 +247,7 @@ export default function PrototypeSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '18px', color: '#7a6678', lineHeight: 1.6, maxWidth: '720px' }}
+            style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '18px', color: '#7a6678', lineHeight: 1.6, maxWidth: '640px' }}
           >
             An offline-first PWA + SMS system designed to make the Hyderabad 2BHK housing scheme completely transparent and navigable for informal workers, migrants, and low-income citizens—without replacing any backend government infrastructure.
           </motion.p>
@@ -329,7 +329,7 @@ export default function PrototypeSection() {
                   background: 'rgba(115, 0, 113, 0.02)',
                   borderLeft: '3px solid #730071',
                   borderRadius: '0 8px 8px 0',
-                  maxWidth: '720px'
+                  maxWidth: '560px'
                 }}
               >
                 <div style={{ fontFamily: "'Playfair Display', serif", fontSize: '18px', color: '#390040', marginBottom: '6px' }}>
@@ -670,23 +670,23 @@ export default function PrototypeSection() {
             </div>
           </div>
 
-          <div className="connector-mobile" style={{ display: 'none', flexDirection: 'column', gap: '32px' }}>
+          <div className="connector-mobile" style={{ display: 'none', flexDirection: 'column', gap: '32px', alignItems: 'center' }}>
             {CONNECTIONS.map((conn, idx) => (
-              <div key={conn.id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
-                <div style={{ background: '#fff', border: '1px solid rgba(57, 0, 64, 0.12)', padding: '16px 20px', borderRadius: '4px', fontSize: '13px', color: '#390040', lineHeight: 1.5, width: '100%', fontWeight: 500 }}>
-                  <span style={{ marginRight: '8px', fontFamily: "'DM Mono', monospace", color: '#DC9596', fontSize: '10px' }}>{idx + 1} Cause ·</span>
+              <div key={conn.id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', width: '100%', maxWidth: '360px' }}>
+                <div style={{ background: '#fff', border: '1px solid rgba(57, 0, 64, 0.12)', padding: '20px', borderRadius: '8px', fontSize: '14px', color: '#390040', lineHeight: 1.5, width: '100%', fontWeight: 500, textAlign: 'center', boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }}>
+                  <div style={{ fontFamily: "'DM Mono', monospace", color: '#DC9596', fontSize: '10px', textTransform: 'uppercase', marginBottom: '6px', letterSpacing: '0.05em' }}>Cause {idx + 1}</div>
                   {conn.left}
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
-                  <span style={{ background: '#F5F3EE', border: '1px solid rgba(57, 0, 64, 0.12)', color: '#7a6678', fontSize: '9px', fontFamily: "'DM Mono', monospace", textTransform: 'uppercase', padding: '2px 8px', borderRadius: '8px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
+                  <span style={{ background: '#F5F3EE', border: '1px solid rgba(57, 0, 64, 0.12)', color: '#7a6678', fontSize: '10px', fontFamily: "'DM Mono', monospace", textTransform: 'uppercase', padding: '4px 12px', borderRadius: '12px', letterSpacing: '0.05em' }}>
                     {conn.pill}
                   </span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#730071" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#730071" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="12" x2="12" y1="5" y2="19"/><polyline points="19 12 12 19 5 12"/>
                   </svg>
                 </div>
-                <div style={{ background: '#390040', color: '#fff', padding: '16px 20px', borderRadius: '4px', fontSize: '13px', lineHeight: 1.5, width: '100%' }}>
-                  <span style={{ marginRight: '8px', fontFamily: "'DM Mono', monospace", color: '#DC9596', fontSize: '10px' }}>{idx + 1} Fix ·</span>
+                <div style={{ background: '#390040', color: '#fff', padding: '20px', borderRadius: '8px', fontSize: '14px', lineHeight: 1.5, width: '100%', textAlign: 'center', boxShadow: '0 8px 20px rgba(57,0,64,0.15)' }}>
+                  <div style={{ fontFamily: "'DM Mono', monospace", color: '#DC9596', fontSize: '10px', textTransform: 'uppercase', marginBottom: '6px', letterSpacing: '0.05em' }}>Fix {idx + 1}</div>
                   {conn.right}
                 </div>
               </div>

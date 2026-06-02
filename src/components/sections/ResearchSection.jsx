@@ -19,13 +19,6 @@ const METHODS = [
       <svg viewBox="0 0 24 24"><path d="M9 17H5a2 2 0 00-2 2v2h18v-2a2 2 0 00-2-2h-4"/><rect x="9" y="3" width="6" height="10" rx="1"/></svg>
     ),
   },
-  {
-    title: 'Field observation',
-    body: 'Visits to ward offices, informal settlements in Saidabad, and builder show-homes to understand the physical and procedural realities of housing access.',
-    icon: (
-      <svg viewBox="0 0 24 24"><path d="M3 12l9-9 9 9M5 10v9a1 1 0 001 1h4v-5h4v5h4a1 1 0 001-1v-9"/></svg>
-    ),
-  },
 ];
 
 const QUOTES = [
@@ -44,9 +37,8 @@ const QUOTES = [
 ];
 
 const DONUT_DATA = [
-  { name: 'Interviews', value: 40, color: '#390040' },
-  { name: 'Secondary research', value: 35, color: '#730071' },
-  { name: 'Field observation', value: 25, color: '#DC9596' },
+  { name: 'Interviews', value: 55, color: '#390040' },
+  { name: 'Secondary research', value: 45, color: '#730071' },
 ];
 
 const CustomDonutTooltip = ({ active, payload }) => {
@@ -74,8 +66,8 @@ export default function ResearchSection() {
             className="section-tag"
           >Phase 02</motion.div>
           <motion.h2
-            initial={{ opacity: 0, y: 30, filter: 'blur(4px)' }}
-            animate={headerInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+            initial={{ opacity: 0, y: 30 }}
+            animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.1 }}
             className="section-title"
           >Listening before designing</motion.h2>
@@ -97,7 +89,7 @@ export default function ResearchSection() {
           animate={cardsInView ? 'visible' : 'hidden'}
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
+            gridTemplateColumns: 'repeat(2, 1fr)',
             gap: '1px',
             background: 'rgba(57,0,64,0.1)',
             marginBottom: '48px',

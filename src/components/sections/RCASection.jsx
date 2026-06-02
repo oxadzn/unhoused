@@ -91,8 +91,8 @@ export default function RCASection() {
             Phase 04
           </motion.div>
           <motion.h2
-            initial={{ opacity: 0, y: 30, filter: 'blur(4px)' }}
-            animate={headerInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+            initial={{ opacity: 0, y: 30 }}
+            animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.1 }}
             style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(36px, 4vw, 56px)', color: '#fff', lineHeight: 1.08, letterSpacing: '-1.5px', marginBottom: 20 }}
           >Following each pain to its root</motion.h2>

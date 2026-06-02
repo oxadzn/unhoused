@@ -158,8 +158,8 @@ export default function SynthesisSection() {
             className="section-tag"
           >Phase 07</motion.div>
           <motion.h2
-            initial={{ opacity: 0, y: 30, filter: 'blur(4px)' }}
-            animate={headerInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+            initial={{ opacity: 0, y: 30 }}
+            animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.1 }}
             className="section-title"
           >Finding the ideas that matter</motion.h2>

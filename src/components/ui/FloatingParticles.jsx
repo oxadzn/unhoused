@@ -23,6 +23,16 @@ export default function FloatingParticles({
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
+    
+    let isVisible = false;
+    const io = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+      if (isVisible) {
+        // Kickstart the loop again if it became visible
+        if (!rafRef.current) loop();
+      }
+    });
+    if (canvas.parentElement) io.observe(canvas.parentElement);
 
     const init = (w, h) => {
       stateRef.current.w = w;
@@ -74,14 +84,19 @@ export default function FloatingParticles({
       }
       ctx.globalAlpha = 1;
 
-      rafRef.current = requestAnimationFrame(loop);
+      if (isVisible) {
+        rafRef.current = requestAnimationFrame(loop);
+      } else {
+        rafRef.current = null;
+      }
     };
 
-    rafRef.current = requestAnimationFrame(loop);
+    if (isVisible) loop();
 
     return () => {
-      cancelAnimationFrame(rafRef.current);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
       ro.disconnect();
+      io.disconnect();
     };
   }, [color, count, maxOpacity, speed, minSize, maxSize]);
 
